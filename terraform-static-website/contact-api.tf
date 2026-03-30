@@ -85,7 +85,7 @@ resource "aws_lambda_function" "contact" {
   function_name = "contact-form-send-email"
   role          = aws_iam_role.contact_lambda_role.arn
   handler       = "index.handler"
-  runtime       = "nodejs18.x"
+  runtime       = "nodejs16.x"
 
   filename         = data.archive_file.contact_lambda_zip.output_path
   source_code_hash = data.archive_file.contact_lambda_zip.output_base64sha256
