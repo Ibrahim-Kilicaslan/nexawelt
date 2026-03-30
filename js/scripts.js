@@ -498,6 +498,14 @@ document.addEventListener('DOMContentLoaded', function() {
           });
           
           if (isValid) {
+              const firstName = (document.getElementById('contact-first-name')?.value || '').trim();
+              const lastName = (document.getElementById('contact-last-name')?.value || '').trim();
+              const email = (document.getElementById('contact-email')?.value || '').trim();
+              const subject = (document.getElementById('contact-subject')?.value || '').trim();
+              const message = (document.getElementById('contact-message')?.value || '').trim();
+
+              const apiUrl = (contactForm.getAttribute('data-api-url') || '').trim();
+
               // Success animation
               const submitBtn = this.querySelector('button[type="submit"]');
               const originalText = submitBtn.innerHTML;
@@ -509,8 +517,45 @@ document.addEventListener('DOMContentLoaded', function() {
                   submitBtn.style.background = '';
                   this.reset();
               }, 3000);
-              
-              alert('Vielen Dank für Ihre Nachricht! Ich werde mich bald bei Ihnen melden.');
+
+              if (apiUrl) {
+                fetch(`${apiUrl.replace(/\/$/, '')}/contact`, {
+                  method: 'POST',
+                  headers: { 'content-type': 'application/json' },
+                  body: JSON.stringify({ firstName, lastName, email, subject, message })
+                })
+                  .then(async (res) => {
+                    if (!res.ok) {
+                      const text = await res.text();
+                      throw new Error(text || `HTTP ${res.status}`);
+                    }
+                    return res.json().catch(() => ({}));
+                  })
+                  .then(() => {
+                    alert(currentLanguage === 'en'
+                      ? 'Thanks! Your message was sent.'
+                      : 'Vielen Dank! Ihre Nachricht wurde gesendet.');
+                  })
+                  .catch(() => {
+                    alert(currentLanguage === 'en'
+                      ? 'Could not send. Please try again later.'
+                      : 'Konnte nicht senden. Bitte später erneut versuchen.');
+                  });
+              } else {
+                const fullName = [firstName, lastName].filter(Boolean).join(' ');
+                const composedSubject = subject || (currentLanguage === 'en' ? 'Website contact' : 'Kontakt über Website');
+                const composedBodyLines = [
+                  fullName ? `Name: ${fullName}` : null,
+                  email ? `E-Mail: ${email}` : null,
+                  '',
+                  message
+                ].filter(line => line !== null);
+                const mailto = `mailto:aikilicaslan@gmail.com?subject=${encodeURIComponent(composedSubject)}&body=${encodeURIComponent(composedBodyLines.join('\n'))}`;
+                window.location.href = mailto;
+                alert(currentLanguage === 'en'
+                  ? 'Your email app will open now.'
+                  : 'Ihre E-Mail-App wird jetzt geöffnet.');
+              }
           } else {
               alert('Bitte füllen Sie alle erforderlichen Felder aus.');
           }

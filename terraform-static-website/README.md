@@ -1,4 +1,4 @@
-# 🟦 Terraform Static Website on AWS
+# 🟦 Terraform Static Website on AWS (Base)
 
 This module provides a complete, modular, and production-ready Infrastructure as Code (IaC) solution for hosting a static website on AWS using S3, CloudFront, Route53, and ACM, all managed with Terraform. It is designed to be clear, reusable, and easy for anyone to adapt for their own projects.
 
@@ -77,6 +77,14 @@ terraform apply
 - **Requests and validates ACM SSL certificates** (wildcard, auto-DNS validation)
 - **Outputs all important endpoints** for easy integration
 - **Supports full automation and CI/CD** (see main project README)
+
+---
+
+## Optional Extension: Contact Form API (Lambda + API Gateway + SES)
+If you also want your contact form to send real emails to an inbox (instead of using `mailto:`), see:
+- `README-contact-form-api.md`
+
+This base README intentionally focuses on the static website infrastructure only.
 
 ---
 
