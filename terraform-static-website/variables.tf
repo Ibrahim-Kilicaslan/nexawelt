@@ -20,4 +20,10 @@ variable "aliases" {
     "info.ibrahimkilicaslan.click",
     "www.ibrahimkilicaslan.click"
   ]
-} 
+}
+
+variable "contact_to_email" {
+  description = "Inbox that receives contact form messages (SES sandbox: must be verified)."
+  type        = string
+  default     = "aikilicaslan@gmail.com"
+}
