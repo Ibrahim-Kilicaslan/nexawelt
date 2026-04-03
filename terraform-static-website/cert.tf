@@ -5,7 +5,7 @@
 # Note: For CloudFront, the certificate MUST be created in the us-east-1 region, regardless of where your other resources are.
 resource "aws_acm_certificate" "cert" {
   provider          = aws.us_east_1
-  domain_name       = var.domain_name  # The main domain (e.g., ibrahimkilicaslan.click)
+  domain_name       = var.nexawelt.de   # The main domain (e.g., ibrahimkilicaslan.click)
   subject_alternative_names = [
     "*.${var.domain_name}"           # Wildcard for all subdomains (e.g., www.ibrahimkilicaslan.click, info.ibrahimkilicaslan.click)
   ]

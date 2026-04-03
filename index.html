@@ -1,547 +1,348 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ibrahim Kilicaslan - Cloud & DevOps Engineer | CV Website</title>
-    <meta name="description" content="Professionelle CV Website von Ibrahim Kilicaslan - Cloud & DevOps Engineer mit Erfahrung in AWS, Docker, Kubernetes, Terraform und Jenkins.">
-    <meta name="keywords" content="Cloud Engineer, DevOps, AWS, Docker, Kubernetes, Terraform, Jenkins, CV, Lebenslauf, Ibrahim Kilicaslan">
-    <meta name="author" content="Ibrahim Kilicaslan">
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
-    
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="NexaWelt – Tech. Trade. Services. Ihr Partner für IT-Geräte, E-Commerce und Online-Handel." />
+  <meta property="og:title" content="NexaWelt – Bald verfügbar" />
+  <meta property="og:description" content="Smart Solutions. Global Trade." />
+  <meta property="og:url" content="https://nexawelt.de" />
+  <title>NexaWelt – Bald verfügbar</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:     #1A3F6F;
+      --blue-mid: #1E5FA8;
+      --orange:   #E87722;
+      --text:     #1a1a1a;
+      --muted:    #555;
+      --faint:    #888;
+      --border:   #ddd;
+      --bg:       #ffffff;
+      --bg2:      #f5f7fa;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text:   #f0f0f0;
+        --muted:  #aaa;
+        --faint:  #666;
+        --border: #2e2e2e;
+        --bg:     #111316;
+        --bg2:    #181b20;
+      }
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .lang-bar {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+    }
+
+    .lang-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .logo-wrap { margin-bottom: 1.25rem; }
+
+    .brand {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--blue);
+      margin-bottom: 0.3rem;
+    }
+
+    .brand em { color: var(--orange); font-style: normal; }
+
+    .slogan {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 2.25rem;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--orange));
+      margin: 0 auto 2.25rem;
+      border-radius: 2px;
+    }
+
+    .headline {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.3px;
+    }
+
+    .subline {
+      font-size: 14px;
+      color: var(--faint);
+      font-style: italic;
+      margin-bottom: 1.75rem;
+    }
+
+    .desc {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.85;
+      margin: 0 auto 2.5rem;
+    }
+
+    .services {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 2.75rem;
+    }
+
+    .pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .contact-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
+      border-radius: 12px;
+      padding: 1.5rem 2.5rem;
+      margin-bottom: 2rem;
+      min-width: 280px;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 1rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 0.6rem;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .contact-row:last-child { margin-bottom: 0; }
+    .contact-row a { color: var(--blue-mid); text-decoration: none; }
+    .contact-row a:hover { text-decoration: underline; }
+
+    .icon {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      opacity: 0.55;
+    }
+
+    .founder {
+      font-size: 13px;
+      color: var(--faint);
+      margin-bottom: 2rem;
+    }
+
+    .founder strong { color: var(--muted); font-weight: 600; }
+
+    .footer {
+      font-size: 11px;
+      color: var(--faint);
+      line-height: 1.9;
+    }
+
+    @media (max-width: 480px) {
+      .brand { font-size: 30px; }
+      .headline { font-size: 24px; }
+      .contact-card { padding: 1.25rem 1.25rem; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">IK</div>
-            <ul class="nav-menu">
-                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="#experience" class="nav-link">Erfahrung</a></li>
-                <li class="nav-item"><a href="#skills" class="nav-link">Kompetenzen</a></li>
-                <li class="nav-item"><a href="#projects" class="nav-link">Projekte</a></li>
-                <li class="nav-item"><a href="#education" class="nav-link">Bildung</a></li>
-                <li class="nav-item"><a href="#blog" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="#contact" class="nav-link">Kontakt</a></li>
-            </ul>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-                <button class="lang-toggle" onclick="toggleLanguage()" id="lang-toggle">
-                    <span class="lang-flag">🇩🇪</span>
-                    <span class="lang-code">DE</span>
-                </button>
-                <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            </div>
-        </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>IBRAHIM KILICASLAN</h1>
-                <div class="subtitle">Cloud & DevOps Engineer</div>
-                <p>Als Elektroingenieur mit vielseitiger Berufserfahrung bringe ich eine strukturierte Denkweise und analytische Fähigkeiten mit. Durch fundierte Kenntnisse in AWS, Docker, Kubernetes, Terraform und Jenkins unterstütze ich moderne IT-Infrastrukturen effizient.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i>
-                        Kontakt aufnehmen
-                    </a>
-                    <a href="#projects" class="btn btn-outline">
-                        <i class="fas fa-code"></i>
-                        Meine Projekte
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="hero-image-container">
-                    <img src="assets/images/image-ibrahim.jpeg" alt="Ibrahim Kilicaslan">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Animated Background Elements -->
-        <div class="floating-elements">
-            <!-- DevOps & Cloud Icons -->
-            <div class="floating-icon"><i class="fab fa-aws"></i></div>
-            <div class="floating-icon"><i class="fab fa-docker"></i></div>
-            <div class="floating-icon"><i class="fas fa-server"></i></div>
-            <div class="floating-icon"><i class="fas fa-cogs"></i></div>
-            <div class="floating-icon"><i class="fas fa-cloud"></i></div>
-            <div class="floating-icon"><i class="fab fa-jenkins"></i></div>
-            <div class="floating-icon"><i class="fab fa-git-alt"></i></div>
-            <div class="floating-icon"><i class="fab fa-github"></i></div>
-            <div class="floating-icon"><i class="fab fa-gitlab"></i></div>
-            <div class="floating-icon"><i class="fab fa-kubernetes"></i></div>
-            <div class="floating-icon"><i class="fas fa-database"></i></div>
-            <div class="floating-icon"><i class="fas fa-network-wired"></i></div>
-            <div class="floating-icon"><i class="fas fa-chart-line"></i></div>
-            <div class="floating-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="floating-icon"><i class="fas fa-sync-alt"></i></div>
-        </div>
+  <div class="lang-bar">
+    <button class="lang-btn active" onclick="setLang('de')" id="btn-de">DE</button>
+    <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+  </div>
 
-        <!-- Code Particles -->
-        <div class="code-particles">
-            <div class="code-particle">kubectl apply -f</div>
-            <div class="code-particle">terraform init</div>
-            <div class="code-particle">docker build -t</div>
-            <div class="code-particle">aws ec2 describe-instances</div>
-            <div class="code-particle">helm install my-app</div>
-            <div class="code-particle">ansible-playbook deploy.yml</div>
-            <div class="code-particle">docker-compose up -d</div>
-            <div class="code-particle">git push origin main</div>
-            <div class="code-particle">jenkins build job</div>
-            <div class="code-particle">kubectl get pods</div>
-            <div class="code-particle">terraform plan</div>
-            <div class="code-particle">aws s3 sync ./dist s3://bucket</div>
-        </div>
+  <div class="logo-wrap">
+    <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="72" height="72" rx="14" fill="#1A3F6F"/>
+      <polyline points="12,52 22,28 32,44 42,28 52,52" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <line x1="40" y1="30" x2="57" y2="15" stroke="#E87722" stroke-width="4" stroke-linecap="round"/>
+      <polyline points="48,15 57,15 57,24" stroke="#E87722" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="22" cy="28" r="2.5" fill="#E87722"/>
+      <circle cx="42" cy="28" r="2.5" fill="#E87722"/>
+      <circle cx="32" cy="44" r="2.5" fill="#E87722"/>
+    </svg>
+  </div>
 
-        <!-- Geometric Background -->
-        <div class="geometric-bg">
-            <div class="geo-shape geo-circle"></div>
-            <div class="geo-shape geo-square"></div>
-            <div class="geo-shape geo-triangle"></div>
-        </div>
-    </section>
+  <div class="brand">Nexa<em>Welt</em></div>
+  <div class="slogan" id="slogan">Tech &ndash; Trade &ndash; Services</div>
 
-    <!-- Experience Section -->
-    <section id="experience" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Berufserfahrungen</h2>
-                <p class="section-subtitle">Meine berufliche Laufbahn und Expertise</p>
-            </div>
-            <div class="grid grid-2">
-                <div class="card">
-                    <div class="card-icon" style="background: var(--primary-gradient);">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3>Cloud & DevOps Engineer</h3>
-                    <div class="subtitle">NioyaTech LLC - USA (Praktikum, Remote)</div>
-                    <ul>
-                        <li>Planung, Implementierung und Automatisierung von CI/CD-Pipelines</li>
-                        <li>Bereitstellung und Optimierung der IT-Infrastruktur</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--secondary-gradient);">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Asset Manager</h3>
-                    <div class="subtitle">Huawei – Türkei 07/2016 – 07/2017</div>
-                    <ul>
-                        <li>Planen und Koordinieren von Bestellungen und Lieferungen</li>
-                        <li>Verfolgen und Auditieren von unternehmenseigenen Assets</li>
-                        <li>Nachverfolgung der Rücksetzung von IT-Geräten</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--accent-gradient);">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Education Consultant & Coordinator</h3>
-                    <div class="subtitle">United Towers Educational Consulting – Türkei 11/2013 – 07/2016</div>
-                    <ul>
-                        <li>Vermittlung von Work-and-Travel-Programmen</li>
-                        <li>Koordination von Bildungs- und Kulturaustauschmöglichkeiten</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="divider"></div>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Kompetenzen</h2>
-                <p class="section-subtitle">Meine technischen Fähigkeiten und Expertisen</p>
-            </div>
-            <div class="grid grid-2">
-                <div class="card">
-                    <h3>Cloud (AWS) Services</h3>
-                    <div class="skill-category">
-                        <div class="skills-list">
-                            <span class="skill-tag">EC2</span>
-                            <span class="skill-tag">EBS</span>
-                            <span class="skill-tag">EFS</span>
-                            <span class="skill-tag">S3</span>
-                            <span class="skill-tag">AMI</span>
-                            <span class="skill-tag">Auto Scaling</span>
-                            <span class="skill-tag">Lambda</span>
-                            <span class="skill-tag">RDS</span>
-                            <span class="skill-tag">VPC</span>
-                            <span class="skill-tag">Route 53</span>
-                            <span class="skill-tag">CloudFront</span>
-                            <span class="skill-tag">API Gateway</span>
-                            <span class="skill-tag">DynamoDB</span>
-                            <span class="skill-tag">CloudFormation</span>
-                            <span class="skill-tag">EKS</span>
-                            <span class="skill-tag">ECS</span>
-                            <span class="skill-tag">ECR</span>
-                            <span class="skill-tag">CloudWatch</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <h3>DevOps Tools & Technologies</h3>
-                    <div class="skill-category">
-                        <div class="skills-list">
-                            <span class="skill-tag">Docker</span>
-                            <span class="skill-tag">Kubernetes</span>
-                            <span class="skill-tag">Terraform</span>
-                            <span class="skill-tag">Ansible</span>
-                            <span class="skill-tag">Jenkins</span>
-                            <span class="skill-tag">GitLab CI/CD</span>
-                            <span class="skill-tag">Git</span>
-                            <span class="skill-tag">GitHub</span>
-                            <span class="skill-tag">Linux</span>
-                            <span class="skill-tag">Bash</span>
-                            <span class="skill-tag">Prometheus</span>
-                            <span class="skill-tag">Grafana</span>
-                            <span class="skill-tag">Nginx</span>
-                            <span class="skill-tag">Apache</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Maven</span>
-                            <span class="skill-tag">Helm Charts</span>
-                            <span class="skill-tag">Rancher</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <div class="headline" id="headline">Wir sind bald für Sie da.</div>
+  <div class="subline" id="subline">„Smart Solutions. Global Trade."</div>
 
-    <!-- Projects Section -->
-    <section id="projects" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Projekte</h2>
-                <p class="section-subtitle">Meine wichtigsten technischen Projekte und Implementierungen</p>
-            </div>
-            <div class="grid grid-3">
-                <div class="card">
-                    <div class="card-icon" style="background: var(--primary-gradient);">
-                        <i class="fas fa-microchip"></i>
-                    </div>
-                    <h3>Microservice Projekt</h3>
-                    <div class="subtitle">CAPSTONE PROJEKT</div>
-                    <p class="project-summary">Entwicklung einer automatisierten Enterprise-Anwendung mit Microservices-Architektur (Java, Spring Boot, Spring Cloud, MySQL), containerisiert mit Docker, deployed auf Kubernetes-Cluster mit Rancher, CI/CD-Automatisierung durch Jenkins und Infrastructure as Code mit Terraform auf AWS.</p>
-                    <a href="#" onclick="toggleProjectDetails(event, 'capstone-details')" style="color: #667eea; font-weight: 600; text-decoration: underline; margin-top: 10px; display: inline-block;">🔍 Mehr erfahren</a>
-                    <div id="capstone-details" class="project-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-                        <ul style="text-align: left; margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
-                            <li>Entwicklung einer automatisierten Anwendung auf Basis der Microservices-Architektur mit Java, Spring Boot und Spring Cloud, integriert mit MySQL</li>
-                            <li>Containerisierung der Anwendung mit Docker für konsistente und portable Umgebungen</li>
-                            <li>Bereitstellung der Microservices auf einem Kubernetes-Cluster, verwaltet mit Rancher</li>
-                            <li>Implementierung von CI/CD-Pipelines zur Automatisierung der Bereitstellung und Updates mit Jenkins</li>
-                            <li>Infrastrukturautomatisierung mit Terraform zur Skalierung der gesamten Infrastruktur auf AWS EC2-Instanzen</li>
-                            <li>Nutzung von Prometheus und Grafana zur kontinuierlichen Überwachung der Anwendung und Cluster-Performance</li>
-                            <li>Versionskontrolle und Teamzusammenarbeit über GitHub</li>
-                        </ul>
-                    </div>
-                    <div class="skills-list" style="margin-top: 1rem;">
-                        <span class="skill-tag" style="background: #28a745;">Java</span>
-                        <span class="skill-tag" style="background: #6f42c1;">Spring Boot</span>
-                        <span class="skill-tag" style="background: #007bff;">Docker</span>
-                        <span class="skill-tag" style="background: #326ce5;">Kubernetes</span>
-                        <span class="skill-tag" style="background: #dc3545;">Jenkins</span>
-                        <span class="skill-tag" style="background: #ff6b6b;">Terraform</span>
-                        <span class="skill-tag" style="background: #e6522c;">Prometheus</span>
-                        <span class="skill-tag" style="background: #f46800;">Grafana</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--secondary-gradient);">
-                        <i class="fab fa-docker"></i>
-                    </div>
-                    <h3>Microservices Phonebook</h3>
-                    <div class="subtitle">KUBERNETES PROJEKT</div>
-                    <p class="project-summary">Entwicklung einer Phonebook-Microservice-Webanwendung mit MySQL-Datenbank, um die Microservice-Architektur praktisch umzusetzen. Die Anwendung umfasst Front-End und Back-End Services, dockerisiert und durch Kubernetes-Deployments verwaltet.</p>
-                    <a href="#" onclick="toggleProjectDetails(event, 'phonebook-details')" style="color: #667eea; font-weight: 600; text-decoration: underline; margin-top: 10px; display: inline-block;">🔍 Mehr erfahren</a>
-                    <div id="phonebook-details" class="project-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-                        <ul style="text-align: left; margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
-                            <li>Projektziel: Entwicklung einer Phonebook-Microservice-Webanwendung mit MySQL-Datenbank, um die Microservice-Architektur praktisch umzusetzen</li>
-                            <li>Architektur: Die Anwendung umfasst einen Front-End-Service und einen Back-End-Service, die mit der MySQL-Datenbank interagieren</li>
-                            <li>Containerisierung: Beide Services wurden dockerisiert und in Containern bereitgestellt</li>
-                            <li>Orchestrierung: Verwaltung und Skalierung der Services durch Kubernetes-Deployments</li>
-                        </ul>
-                    </div>
-                    <div class="skills-list" style="margin-top: 1rem;">
-                        <span class="skill-tag" style="background: #326ce5;">Kubernetes</span>
-                        <span class="skill-tag" style="background: #007bff;">Docker</span>
-                        <span class="skill-tag" style="background: #e97627;">MySQL</span>
-                    </div>
-                </div>
-            <div class="card">
-                    <div class="card-icon" style="background: var(--accent-gradient);">
-                        <i class="fab fa-aws"></i>
-                    </div>
-                    <h3>Cloud Infrastructure</h3>
-                    <div class="subtitle">AWS PROJEKT</div>
-                    <p class="project-summary">Entwicklung und Bereitstellung einer Blog-Webanwendung auf AWS Cloud Infrastructure mit Django Framework. Load Balancing mit ALB, Auto Scaling, RDS, S3, Lambda, DynamoDB, CloudFront und Route 53.</p>
-                    <a href="#" onclick="toggleProjectDetails(event, 'aws-details')" style="color: #667eea; font-weight: 600; text-decoration: underline; margin-top: 10px; display: inline-block;">🔍 Mehr erfahren</a>
-                    <div id="aws-details" class="project-details" style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
-                        <ul style="text-align: left; margin: 1rem 0; padding-left: 1.5rem; line-height: 1.8;">
-                            <li>Entwicklung und Bereitstellung einer Blog-Webanwendung auf AWS Cloud Infrastructure mit Django Framework</li>
-                            <li>Load Balancing mit Application Load Balancer (ALB) für hohe Verfügbarkeit</li>
-                            <li>Auto Scaling zur automatischen Anpassung der Ressourcen basierend auf der Last</li>
-                            <li>RDS (Relational Database Service) für verwaltete Datenbanken</li>
-                            <li>S3 für Objektspeicherung und statische Inhalte</li>
-                            <li>Lambda für serverlose Funktionen</li>
-                            <li>DynamoDB für NoSQL-Datenbank</li>
-                            <li>CloudFront und Route 53 für globale Inhaltsverteilung und DNS-Verwaltung</li>
-                        </ul>
-                    </div>
-                    <div class="skills-list" style="margin-top: 1rem;">
-                        <span class="skill-tag" style="background: #ff9900;">AWS</span>
-                        <span class="skill-tag" style="background: #092e20;">Django</span>
-                        <span class="skill-tag" style="background: #232f3e;">CloudFront</span>
-                        <span class="skill-tag" style="background: #3776ab;">Python</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <p class="desc" id="desc">
+    NexaWelt wird Ihr zuverlässiger Partner für IT-Geräte, Elektronik und Waren aller Art –
+    neue und gebrauchte Produkte, Online-Handel und digitale Lösungen aus einer Hand.
+    Wir arbeiten mit Hochdruck daran, Ihnen bald ein erstklassiges Erlebnis zu bieten.
+  </p>
 
-    <!-- Education Section -->
-    <section id="education" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Studium</h2>
-                <p class="section-subtitle">Mein Studium und Weiterbildungen</p>
-            </div>
-            <div class="grid grid-2">
-                <div class="card">
-                    <div class="card-icon" style="background: var(--primary-gradient);">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h3>AWS SAA & DevOps Engineer Weiterbildung</h3>
-                    <div class="subtitle">Clarusway IT Training School | Oktober 2023 – Oktober 2024</div>
-                    <p>39-wöchige berufliche Weiterbildung (1480 Stunden) mit Fokus auf IT Fundamentals, AWS SAA und DevOps-Technologien. Praktische Erfahrung mit Shell-Scripting, Git, Linux, AWS Services, Containerisierung und CI/CD-Pipelines.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--secondary-gradient);">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Master Of Business Administration (MBA)</h3>
-                    <div class="subtitle">San Francisco Bay University | März 2008 – März 2009</div>
-                    <p>MBA-Studium mit Schwerpunkt Finanzen, das mir strategisches Denken und Managementfähigkeiten vermittelt hat.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--accent-gradient);">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Bachelor-Abschluss Elektroingenieur</h3>
-                    <div class="subtitle">Kahramanmaras Sütcü Imam Universität | September 2003 – Juni 2007</div>
-                    <p>Grundlagen in analytischem Denken, technischer Problemlösung und Ingenieurprinzipien aufgebaut.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon" style="background: var(--dark-gradient);">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <h3>Sprachaufenthalte Englisch</h3>
-                    <div class="subtitle">De Anza College & Kaplan International | 2009 – 2012</div>
-                    <p>Intensive Englischsprachkurse zur Verbesserung der Kommunikationsfähigkeiten in internationalen Arbeitsumgebungen.</p>
-                </div>
-            </div>
-        </div>
-        </section>
+  <div class="services">
+    <span class="pill"><span class="pill-dot"></span><span id="s1">IT-Geräte &amp; Elektronik</span></span>
+    <span class="pill"><span class="pill-dot"></span><span id="s2">Online-Handel</span></span>
+    <span class="pill"><span class="pill-dot"></span><span id="s3">Neu &amp; Gebraucht</span></span>
+    <span class="pill"><span class="pill-dot"></span><span id="s4">Online-Marketing</span></span>
+    <span class="pill"><span class="pill-dot"></span><span id="s5">Consulting</span></span>
+  </div>
 
-    <!-- Blog Section -->
-    <section id="blog" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Blog</h2>
-                <p class="section-subtitle">Meine Gedanken und Erfahrungen aus der Tech-Welt</p>
-            </div>
-            <div class="card blog-card" style="max-width: 800px; margin: 0 auto;">
-                <h3>Wie ich meine professionelle CV-Website mit AWS, Terraform & GitHub Actions erstellt und bereitgestellt habe</h3>
-                <div class="subtitle" style="margin-bottom: 1.5rem;">
-                    <strong>Autor:</strong> Ibrahim Kilicaslan | <strong>Datum:</strong> 22.07.2025
-                </div>
-                
-                <!-- Blog excerpt (visible by default) -->
-                <div class="blog-excerpt">
-                    <p>Als Cloud & DevOps Engineer wollte ich, dass meine persönliche Website nicht nur meine berufliche Erfahrung, sondern auch meine technischen Fähigkeiten in Automatisierung, Cloud-Infrastruktur und bewährten Praktiken widerspiegelt. Anstatt einen einfachen Website-Builder zu verwenden, entschied ich mich, meine CV-Website mit AWS-Services (S3, Route 53, CloudFront, ACM) zu erstellen und alles mit Terraform und GitHub Actions zu automatisieren.</p>
-                    
-                    <p>In diesem Beitrag teile ich meine Reise, die Architektur, die Herausforderungen, denen ich mich gestellt habe, und eine Schritt-für-Schritt-Anleitung für alle, die eine moderne, sichere und vollständig automatisierte statische Website auf AWS erstellen möchten.</p>
-                </div>
-                
-                <!-- Full blog content (hidden by default) -->
-                <div class="blog-full-content" style="display: none;">
-                    <p>Als Cloud & DevOps Engineer wollte ich, dass meine persönliche Website nicht nur meine berufliche Erfahrung, sondern auch meine technischen Fähigkeiten in Automatisierung, Cloud-Infrastruktur und bewährten Praktiken widerspiegelt. Anstatt einen einfachen Website-Builder zu verwenden, entschied ich mich, meine CV-Website mit AWS-Services (S3, Route 53, CloudFront, ACM) zu erstellen und alles mit Terraform und GitHub Actions zu automatisieren.</p>
-                    
-                    <p>In diesem Beitrag teile ich meine Reise, die Architektur, die Herausforderungen, denen ich mich gestellt habe, und eine Schritt-für-Schritt-Anleitung für alle, die eine moderne, sichere und vollständig automatisierte statische Website auf AWS erstellen möchten.</p>
-                    
-                    <h4 style="color: var(--text-primary); margin: 2rem 0 1rem 0;">Warum nicht einfach einen Website-Builder verwenden?</h4>
-                    <ul style="margin: 1rem 0; padding-left: 2rem;">
-                        <li><strong>Vollständige Kontrolle</strong> über Infrastruktur und Bereitstellung</li>
-                        <li><strong>Lernen und Präsentieren</strong> realer DevOps- und Cloud-Fähigkeiten</li>
-                        <li><strong>Skalierbarkeit und Sicherheit</strong> mit AWS-Best-Practices</li>
-                        <li><strong>Automatisierung</strong>: Keine manuellen Uploads, kein FTP, keine "Klick-und-Hoffen"-Bereitstellungen</li>
-            </ul>
-                    
-                    <h4 style="color: var(--text-primary); margin: 2rem 0 1rem 0;">Architektur-Übersicht</h4>
-                    <p>Die Website ist eine statische HTML/CSS/JS-Site, gehostet auf AWS S3, global über CloudFront ausgeliefert, mit HTTPS (ACM) gesichert und DNS mit Route 53 verwaltet. Die gesamte Infrastruktur ist mit Terraform als Code definiert, und Bereitstellungen werden mit GitHub Actions automatisiert.</p>
-                    
-                    <ul style="margin: 1rem 0; padding-left: 2rem;">
-                        <li><strong>S3:</strong> Statisches Website-Hosting</li>
-                        <li><strong>CloudFront:</strong> CDN, HTTPS, benutzerdefinierte Domains</li>
-                        <li><strong>Route 53:</strong> DNS-Verwaltung</li>
-                        <li><strong>ACM:</strong> Kostenlose SSL-Zertifikate (automatische Verlängerung)</li>
-                        <li><strong>GitHub Actions:</strong> CI/CD für automatische Bereitstellung</li>
-            </ul>
+  <div class="contact-card">
+    <div class="contact-label" id="contact-label">Kontakt</div>
 
-                    <h4 style="color: var(--text-primary); margin: 2rem 0 1rem 0;">Schritt für Schritt: Wie ich es gemacht habe</h4>
-                    <ol style="margin: 1rem 0; padding-left: 2rem;">
-                        <li><strong>Design & Frontend:</strong> Erstellung einer modernen, responsiven CV-Website mit HTML, CSS und JavaScript.</li>
-                        <li><strong>Infrastructure as Code:</strong> Erstellung eines modularen Terraform-Setups für S3, CloudFront, Route 53 und ACM.</li>
-                        <li><strong>CI/CD:</strong> Einrichtung von GitHub Actions für automatisierte Bereitstellungen.</li>
-                        <li><strong>Domain & DNS:</strong> Registrierung und Verwaltung meiner Domain mit Route 53.</li>
-                        <li><strong>SSL & Sicherheit:</strong> Verwendung von ACM für SSL-Zertifikate und Erzwingung von HTTPS.</li>
-                    </ol>
-                    
-                    <h4 style="color: var(--text-primary); margin: 2rem 0 1rem 0;">Abschließende Gedanken</h4>
-                    <p>Der Aufbau einer eigenen Website mit AWS und vollständiger Automatisierung ist nicht nur eine großartige Lernerfahrung – es ist auch eine Möglichkeit, sich als DevOps- oder Cloud-Engineer hervorzuheben.</p>
-                    <p>Wenn Sie eine moderne, sichere und vollständig automatisierte persönliche Website möchten, nutzen Sie gerne mein Repository als Vorlage und machen Sie es zu Ihrem eigenen!</p>
-                    
-                    <h4 style="color: var(--text-primary); margin: 2rem 0 1rem 0;">Technische Architektur</h4>
-                    <div class="skills-list" style="margin: 1rem 0;">
-                        <span class="skill-tag" style="background: #ff9900;">S3</span>
-                        <span class="skill-tag" style="background: #232f3e;">CloudFront</span>
-                        <span class="skill-tag" style="background: #ff9900;">Route 53</span>
-                        <span class="skill-tag" style="background: #ff9900;">ACM</span>
-                        <span class="skill-tag" style="background: #7c3aed;">Terraform</span>
-                        <span class="skill-tag" style="background: #2088ff;">GitHub Actions</span>
-                    </div>
-                    
-                    <p style="margin-top: 1.5rem; font-size: 1.1rem; font-weight: 600;">
-                        <strong>Viel Erfolg beim Bauen! 🚀<br>Ibrahim Kilicaslan</strong>
-                    </p>
-                </div>
-                
-                <!-- Toggle button -->
-                <div class="blog-actions" style="margin-top: 2rem; text-align: center;">
-                    <button class="btn btn-primary blog-toggle-btn" onclick="toggleBlogContent(this)">
-                        <span class="btn-text">Weiterlesen</span>
-                        <i class="fas fa-chevron-down btn-icon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        </section>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+      <a href="mailto:info@nexawelt.de">info@nexawelt.de</a>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Kontakt</h2>
-                <p class="section-subtitle">Lassen Sie uns über Ihr nächstes Projekt sprechen</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-item-icon" style="background: var(--primary-gradient);">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Telefon</h4>
-                            <p>+49 176 808 941 84</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon" style="background: var(--secondary-gradient);">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>E-Mail</h4>
-                            <p>aikilicaslan@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon" style="background: var(--accent-gradient);">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>Standort</h4>
-                            <p>Berlin, Deutschland</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon" style="background: linear-gradient(135deg, #0077b5 0%, #005885 100%);">
-                            <i class="fab fa-linkedin-in"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>LinkedIn</h4>
-                            <p><a href="https://linkedin.com/in/ibrahim-kilicaslan" target="_blank" style="color: inherit; text-decoration: none;">linkedin.com/in/ibrahim-kilicaslan</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-item-icon" style="background: linear-gradient(135deg, #333 0%, #24292e 100%);">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-item-content">
-                            <h4>GitHub</h4>
-                            <p><a href="https://github.com/ibrahim-kilicaslan" target="_blank" style="color: inherit; text-decoration: none;">github.com/ibrahim-kilicaslan</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form-container">
-                    <div class="card" style="height: 100%;">
-                        <h3>Nachricht senden</h3>
-                        <form class="contact-form" id="contact-form" data-api-url="https://02hgbde9te.execute-api.us-east-1.amazonaws.com" style="margin-top: 1.5rem;" novalidate>
-                            <div style="display: grid; gap: 1rem; grid-template-columns: 1fr 1fr;">
-                                <input id="contact-first-name" name="firstName" type="text" placeholder="Vorname" autocomplete="given-name" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
-                                <input id="contact-last-name" name="lastName" type="text" placeholder="Nachname" autocomplete="family-name" style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; font-family: inherit;">
-                            </div>
-                            <input id="contact-email" name="email" type="email" placeholder="E-Mail" autocomplete="email" required style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; width: 100%; font-family: inherit;">
-                            <input id="contact-subject" name="subject" type="text" placeholder="Betreff" required style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; width: 100%; font-family: inherit;">
-                            <textarea id="contact-message" name="message" placeholder="Ihre Nachricht" rows="5" required style="padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; width: 100%; font-family: inherit; resize: vertical;"></textarea>
-                            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                                <i class="fas fa-paper-plane"></i>
-                                Nachricht senden
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </section>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2A19.79 19.79 0 013.09 5.18 2 2 0 015.09 3h3a2 2 0 012 1.72 12.05 12.05 0 00.66 2.68 2 2 0 01-.45 2.11L9.09 10.71a16 16 0 006.2 6.2l1.21-1.21a2 2 0 012.11-.45 12.05 12.05 0 002.68.66A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:+4917680894184">+49 (176) 80894184</a>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="social-links">
-                <a href="https://linkedin.com/in/ibrahim-kilicaslan" target="_blank" class="social-link">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://github.com/ibrahim-kilicaslan" target="_blank" class="social-link">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://www.xing.com/profile/Ibrahim_Kilicaslan057417/web_profiles" target="_blank" class="social-link">
-                    <i class="fab fa-xing"></i>
-                </a>
-            </div>
-            <p>&copy; 2025 Ibrahim Kilicaslan. Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
+    <div class="contact-row">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      <a href="https://www.nexawelt.de">www.nexawelt.de</a>
+    </div>
+  </div>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-to-top" onclick="scrollToTop()">
-        <i class="fas fa-chevron-up"></i>
-    </button>
+  <div class="founder">
+    <strong>Ibrahim Kilicaslan</strong> &nbsp;|&nbsp; <span id="founder-role">Inhaber &amp; Gründer</span>
+  </div>
 
-    <!-- JavaScript -->
-    <script src="js/scripts.js"></script>
+  <div class="footer">
+    Berlin, Deutschland &nbsp;·&nbsp; nexawelt.de<br/>
+    <span id="footer-copy">© 2025 NexaWelt. Alle Rechte vorbehalten.</span>
+  </div>
+
+  <script>
+    const translations = {
+      de: {
+        lang: 'de',
+        title: 'NexaWelt \u2013 Bald verf\u00fcgbar',
+        slogan: 'Tech \u2013 Trade \u2013 Services',
+        headline: 'Wir sind bald f\u00fcr Sie da.',
+        subline: '\u201eSmart Solutions. Global Trade.\u201c',
+        desc: 'NexaWelt wird Ihr zuverl\u00e4ssiger Partner f\u00fcr IT-Ger\u00e4te, Elektronik und Waren aller Art \u2013 neue und gebrauchte Produkte, Online-Handel und digitale L\u00f6sungen aus einer Hand. Wir arbeiten mit Hochdruck daran, Ihnen bald ein erstklassiges Erlebnis zu bieten.',
+        s1: 'IT-Ger\u00e4te &amp; Elektronik',
+        s2: 'Online-Handel',
+        s3: 'Neu &amp; Gebraucht',
+        s4: 'Online-Marketing',
+        s5: 'Consulting',
+        contactLabel: 'Kontakt',
+        founderRole: 'Inhaber &amp; Gr\u00fcnder',
+        footerCopy: '\u00a9 2025 NexaWelt. Alle Rechte vorbehalten.'
+      },
+      en: {
+        lang: 'en',
+        title: 'NexaWelt \u2013 Coming Soon',
+        slogan: 'Tech \u2013 Trade \u2013 Services',
+        headline: 'We are launching soon.',
+        subline: '"Smart Solutions. Global Trade."',
+        desc: 'NexaWelt will be your trusted partner for IT devices, electronics, and goods of all kinds \u2013 new and used products, e-commerce, and digital solutions all in one place. We are working hard to bring you a first-class experience very soon.',
+        s1: 'IT Devices &amp; Electronics',
+        s2: 'E-Commerce',
+        s3: 'New &amp; Used',
+        s4: 'Online Marketing',
+        s5: 'Consulting',
+        contactLabel: 'Contact',
+        founderRole: 'Owner &amp; Founder',
+        footerCopy: '\u00a9 2025 NexaWelt. All rights reserved.'
+      }
+    };
+
+    function setLang(lang) {
+      const d = translations[lang];
+      document.documentElement.lang = d.lang;
+      document.title = d.title;
+      document.getElementById('slogan').textContent = d.slogan;
+      document.getElementById('headline').textContent = d.headline;
+      document.getElementById('subline').textContent = d.subline;
+      document.getElementById('desc').textContent = d.desc;
+      document.getElementById('s1').innerHTML = d.s1;
+      document.getElementById('s2').innerHTML = d.s2;
+      document.getElementById('s3').innerHTML = d.s3;
+      document.getElementById('s4').innerHTML = d.s4;
+      document.getElementById('s5').innerHTML = d.s5;
+      document.getElementById('contact-label').textContent = d.contactLabel;
+      document.getElementById('founder-role').innerHTML = d.founderRole;
+      document.getElementById('footer-copy').textContent = d.footerCopy;
+      document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+  </script>
+
 </body>
 </html>

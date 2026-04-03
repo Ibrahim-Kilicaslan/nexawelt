@@ -37,14 +37,14 @@ jobs:
     - name: Sync website files to S3 with cache control
       run: |
         # Upload HTML files with no cache
-        aws s3 sync deploy-temp/ s3://ibrahimkilicaslan.click \
+        aws s3 sync deploy-temp/ s3://nexawelt.de \
           --exclude "*" \
           --include "*.html" \
           --cache-control "no-cache, no-store, must-revalidate" \
           --metadata-directive REPLACE
         
         # Upload CSS/JS with short cache
-        aws s3 sync deploy-temp/ s3://ibrahimkilicaslan.click \
+        aws s3 sync deploy-temp/ s3://nexawelt.de \
           --exclude "*" \
           --include "*.css" \
           --include "*.js" \
@@ -52,7 +52,7 @@ jobs:
           --metadata-directive REPLACE
         
         # Upload other assets with longer cache
-        aws s3 sync deploy-temp/ s3://ibrahimkilicaslan.click \
+        aws s3 sync deploy-temp/ s3://nexawelt.de \
           --exclude "*.html" \
           --exclude "*.css" \
           --exclude "*.js" \
@@ -84,7 +84,7 @@ jobs:
     - name: Verify CloudFront cache headers
       run: |
         echo "🔍 Testing cache headers..."
-        curl -I "https://ibrahimkilicaslan.click/" || echo "Site might still be propagating..."
+        curl -I "https://nexawelt.de/" || echo "Site might still be propagating..."
 
     - name: Cleanup deployment directory
       run: rm -rf deploy-temp
@@ -92,9 +92,9 @@ jobs:
     - name: Deployment status
       run: |
         echo "✅ Website deployed successfully!"
-        echo "🌐 Main site: https://ibrahimkilicaslan.click"
-        echo "🌐 WWW site: https://www.ibrahimkilicaslan.click"
-        echo "🌐 Info site: https://info.ibrahimkilicaslan.click"
+        echo "🌐 Main site: https://nexawelt.de"
+        echo "🌐 WWW site: https://www.nexawelt.de"
+        echo "🌐 Info site: https://info.nexawelt.de"
         echo ""
         echo "⚡ Cache Optimization Applied:"
         echo "   - HTML files: No cache (immediate updates)"

@@ -9,16 +9,16 @@ variable "aws_region" {
 # The main domain name for the website and DNS records
 variable "domain_name" {
   description = "Main domain name"
-  default     = "ibrahimkilicaslan.click"
+  default     = "nexawelt.de"
 }
 
 variable "aliases" {
   description = "List of domain names (CNAMEs) for CloudFront"
   type        = list(string)
   default     = [
-    "ibrahimkilicaslan.click",
-    "info.ibrahimkilicaslan.click",
-    "www.ibrahimkilicaslan.click"
+    "nexawelt.de",
+    "info.nexawelt.de",
+    "www.nexawelt.de"
   ]
 }
 
