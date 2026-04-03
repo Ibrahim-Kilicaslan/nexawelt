@@ -15,5 +15,5 @@ output "cloudfront_domain_name" {
 # The name of the Route53 hosted zone (useful for verification and management)
 output "route53_zone_name" {
   description = "Route53 hosted zone name"
-  value       = aws_route53_zone.main.name
+  value       = data.aws_route53_zone.main.name
 } 

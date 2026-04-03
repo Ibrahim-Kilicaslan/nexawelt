@@ -17,7 +17,7 @@ resource "aws_ses_domain_identity" "domain" {
 }
 
 resource "aws_route53_record" "ses_domain_verification" {
-  zone_id = aws_route53_zone.main.zone_id
+  zone_id = data.aws_route53_zone.main.zone_id
   name    = "_amazonses.${var.domain_name}"
   type    = "TXT"
   ttl     = 600
@@ -30,7 +30,7 @@ resource "aws_ses_domain_dkim" "domain" {
 
 resource "aws_route53_record" "ses_dkim" {
   count   = 3
-  zone_id = aws_route53_zone.main.zone_id
+  zone_id = data.aws_route53_zone.main.zone_id
   name    = "${aws_ses_domain_dkim.domain.dkim_tokens[count.index]}._domainkey.${var.domain_name}"
   type    = "CNAME"
   ttl     = 600
@@ -85,7 +85,7 @@ resource "aws_lambda_function" "contact" {
   function_name = "contact-form-send-email"
   role          = aws_iam_role.contact_lambda_role.arn
   handler       = "index.handler"
-  runtime       = "nodejs16.x"
+  runtime       = "nodejs20.x"
 
   filename         = data.archive_file.contact_lambda_zip.output_path
   source_code_hash = data.archive_file.contact_lambda_zip.output_base64sha256
@@ -141,7 +141,7 @@ resource "aws_apigatewayv2_stage" "default" {
 }
 
 resource "aws_lambda_permission" "allow_apigw_invoke" {
-  statement_id  = "AllowExecutionFromAPIGateway"
+  statement_id = "AllowExecutionFromAPIGateway-nexawelt"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.contact.function_name
   principal     = "apigateway.amazonaws.com"
