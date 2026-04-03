@@ -1,202 +1,331 @@
-# 🟩 Contact Form API Extension (Lambda + API Gateway + SES)
+# NexaWelt – AWS Static Website Infrastructure
 
-This document extends the base static website Terraform setup with a server-side contact endpoint:
+> 🇹🇷 Türkçe dokümantasyon için: [README.tr.md](./README.tr.md)
 
-**Static website (S3 + CloudFront + Route53 + ACM) + Contact API (API Gateway + Lambda + SES)**
-
-It replaces the `mailto:`-only behavior with a real email send to an inbox.
-
-> **Important notes:**
-> - S3 static hosting cannot directly send emails to Gmail inboxes; email sending must happen server-side (Lambda).
-> - SES has a sandbox mode in many accounts. In sandbox, **both sender and recipient must be verified**.
-> - DNS validation and SES domain verification are done via Route53.
-> - Lambda must use **Node.js 16** runtime (see [Runtime Note](#runtime-note) below).
+This repository provisions a fully automated static website infrastructure on AWS.
+All resources are managed as code with Terraform, and every push to `main` triggers an automatic deployment via GitHub Actions.
 
 ---
 
-## Architecture (what gets created)
+## Architecture
 
-- **SES:** domain identity + DKIM (for better deliverability)
-- **Lambda:** `contact-form-send-email` (receives JSON and sends email via SES)
-- **API Gateway (HTTP API):** `POST /contact`
+```
+Internet
+    │
+    ▼
+Route53 (nexawelt.de)
+    │
+    ▼
+CloudFront (CDN + HTTPS + Cache)
+    │
+    ▼
+S3 Bucket (static files)
+    │
+    ├── Lambda (contact-form-send-email)
+    │       │
+    │       ▼
+    │     SES (email delivery)
+    │
+    └── API Gateway (POST /contact)
+```
 
-The frontend form sends JSON to the API endpoint, then shows a success or error message.
+**AWS Resources Created:**
+- Route53 DNS records
+- ACM SSL Certificate (us-east-1, wildcard)
+- S3 Bucket (static file hosting)
+- CloudFront Distribution (CDN)
+- Lambda Function (contact form handler)
+- API Gateway HTTP API
+- SES Domain Identity + DKIM
 
 ---
 
-## 1) Prerequisites (before Terraform apply)
+## Prerequisites
 
-1. Route53 Hosted Zone must exist for your domain (base module creates it).
-2. SES must be enabled in your AWS account.
-3. Decide inbox destination:
-   - `var.contact_to_email` defaults to `aikilicaslan@gmail.com` (can be changed in `variables.tf`).
+Before you begin, make sure you have:
+
+- An AWS account with CLI configured (`aws configure`)
+- Terraform installed (`terraform -version`)
+- A domain registered in AWS Route53
+- A GitHub account
 
 ---
 
-## 2) Deploy with Terraform
+## ⚠️ Critical: Duplicate Hosted Zone Problem
 
-From `terraform-static-website/`:
+When you purchase a domain through AWS, a Hosted Zone is **automatically created** by the registrar.
+Do **not** create a second zone with Terraform's `aws_route53_zone` resource — this causes a conflict and ACM validation will hang indefinitely.
 
-```sh
+**Wrong (do not use):**
+```hcl
+resource "aws_route53_zone" "main" {
+  name = var.domain_name
+}
+```
+
+**Correct (use this):**
+```hcl
+data "aws_route53_zone" "main" {
+  zone_id = "ZXXXXXXXXXXXXXXXXX"  # copy from AWS Console
+}
+```
+
+To find your Hosted Zone ID:
+```
+AWS Console → Route53 → Hosted zones → click your domain → Zone ID
+```
+
+---
+
+## Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Ibrahim-Kilicaslan/nexawelt.git
+cd nexawelt/terraform-static-website
+```
+
+### 2. Update Variables
+
+In `variables.tf`:
+
+```hcl
+variable "domain_name" {
+  default = "nexawelt.de"
+}
+
+variable "aliases" {
+  default = [
+    "nexawelt.de",
+    "www.nexawelt.de",
+    "info.nexawelt.de"
+  ]
+}
+
+variable "contact_to_email" {
+  default = "info@nexawelt.de"
+}
+```
+
+In `route53.tf`:
+
+```hcl
+data "aws_route53_zone" "main" {
+  zone_id = "ZXXXXXXXXXXXXXXXXX"   # your Zone ID
+}
+```
+
+### 3. Terraform Init
+
+```bash
 terraform init
-terraform plan
+```
+
+### 4. ⚠️ Two-Step Apply (Required)
+
+Running `terraform apply` directly will fail. The ACM certificate validation records use `for_each`, but Terraform cannot determine the map keys until the certificate exists.
+
+**Step 1 — Create ACM certificate first:**
+```bash
+terraform apply -target=aws_acm_certificate.cert -target=aws_route53_zone.main
+```
+
+> Only 2 resources are created. Type "yes" and wait (~30–60 seconds).
+
+**Step 2 — Create all remaining resources:**
+```bash
 terraform apply
 ```
 
-Terraform will create SES domain verification and DKIM records in Route53 automatically.
+> The `aws_acm_certificate_validation` resource may take 5–15 minutes while AWS waits
+> for DNS propagation. This is normal — do not close the terminal.
+
+### 5. Outputs
+
+```
+cloudfront_domain_name = "xxxxx.cloudfront.net"
+contact_api_endpoint   = "https://xxxxx.execute-api.us-east-1.amazonaws.com"
+route53_zone_name      = "nexawelt.de"
+s3_website_endpoint    = "nexawelt.de.s3-website-us-east-1.amazonaws.com"
+```
+
+To get the CloudFront Distribution ID:
+```bash
+aws cloudfront list-distributions \
+  --query 'DistributionList.Items[*].[Id,DomainName]' \
+  --output table
+```
 
 ---
 
-## 3) Runtime Note
+## GitHub Actions Setup
 
-> ⚠️ **Use `nodejs16.x` — NOT `nodejs18.x`**
+### Required Secrets
 
-The Lambda function uses `aws-sdk` v2 (`const AWS = require("aws-sdk")`).
-In Node.js 18+, `aws-sdk` v2 is **no longer included** as a built-in module and will throw:
+GitHub → repository → Settings → Secrets and variables → Actions → New repository secret
+
+| Secret | Value | Where to Find |
+|--------|-------|---------------|
+| `AWS_ACCESS_KEY_ID` | IAM access key | `~/.aws/credentials` |
+| `AWS_SECRET_ACCESS_KEY` | IAM secret key | `~/.aws/credentials` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront ID | Terraform output or AWS Console |
+
+### Required IAM Permissions
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::nexawelt.de",
+        "arn:aws:s3:::nexawelt.de/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["cloudfront:CreateInvalidation"],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+### Pipeline Flow
 
 ```
-Runtime.ImportModuleError: Cannot find module 'aws-sdk'
+git push → main branch
+    │
+    ▼
+GitHub Actions triggered
+    │
+    ├── Configure AWS credentials
+    ├── Copy files to deploy-temp/
+    ├── HTML  → S3 (no-cache)
+    ├── CSS/JS → S3 (5 min cache)
+    ├── Assets → S3 (1 hour cache)
+    ├── CloudFront cache invalidation
+    └── Site availability check
 ```
 
-In `contact-api.tf`, make sure the runtime is set to:
+> Changes inside `terraform-static-website/**` do not trigger the pipeline.
+
+---
+
+## Lambda Runtime Note
+
+> ⚠️ **`nodejs16.x` is deprecated — use `nodejs20.x`**
+
+In `contact-api.tf`:
 
 ```hcl
-runtime = "nodejs16.x"
+runtime = "nodejs20.x"
+```
+
+With `nodejs20.x`, use the v3 SDK in Lambda:
+
+```javascript
+const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 ```
 
 ---
 
-## 4) Wire the frontend to the API endpoint
+## SES Sandbox Mode
 
-Set `data-api-url` on the form element in `cv-website/index.html` to the Terraform output `contact_api_endpoint`:
+New AWS accounts are in SES sandbox mode by default. Both the sender domain and the recipient email must be verified.
 
-```html
-<form class="contact-form" data-api-url="https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com" ...>
+**Verify recipient email:**
+```
+AWS Console → SES → Verified identities → Create identity → Email address
 ```
 
-> ⚠️ **Do NOT append `/contact` to `data-api-url`.**
-> `scripts.js` already appends `/contact` to the base URL when making the POST request.
-> Adding `/contact` in `data-api-url` will result in a double path (`/contact/contact`) and a 404 error.
-
-The form sends JSON with these fields:
-- `firstName`
-- `lastName`
-- `email`
-- `subject`
-- `message`
-
----
-
-## 5) CORS Configuration
-
-The API Gateway CORS configuration in `contact-api.tf` allows only these origins:
-
-```hcl
-allow_origins = [
-  "http://localhost:5500",
-  "http://127.0.0.1:5500",
-  "https://${var.domain_name}",
-  "https://www.${var.domain_name}",
-  "https://info.${var.domain_name}"
-]
+**Request production access:**
+```
+AWS Console → SES → Account dashboard → Request production access
 ```
 
-> ⚠️ **Always test the form from `https://yourdomain.com`**, not from the S3 endpoint URL.
-> The S3 URL (`https://s3.us-east-1.amazonaws.com/...`) is not in the allowed origins list and will cause a CORS error.
-
 ---
 
-## 6) SES Sandbox — Verify the Recipient
+## Contact Form API Test
 
-If your AWS account is in SES sandbox mode (default for new accounts), **both the sender domain and the recipient email address must be verified**.
-
-### Verify sender domain (automatic)
-Terraform creates the SES domain identity and DKIM records in Route53 automatically.
-
-### Verify recipient email address (manual)
-
-1. Go to **AWS SES Console → Verified identities**:
-   ```
-   https://console.aws.amazon.com/ses/home?region=us-east-1#/verified-identities
-   ```
-2. Click **"Create identity"**
-3. Select **"Email address"** (not Domain)
-4. Enter the recipient email (e.g. `aikilicaslan@gmail.com`)
-5. Click **"Create identity"**
-6. Open the inbox → find the AWS verification email (check spam too)
-7. Click **"Verify this email address"** in the email
-8. Status will change to **"Verified"** in SES Console
-
-> Until the recipient is verified, Lambda will execute without errors but emails will not be delivered.
-
----
-
-## 7) Test end-to-end
-
-### Quick API test (terminal)
-Before testing the frontend, verify Lambda is working directly:
-
-```sh
-curl -X POST https://YOUR_API_ID.execute-api.us-east-1.amazonaws.com/contact \
+```bash
+curl -X POST https://XXXXX.execute-api.us-east-1.amazonaws.com/contact \
   -H "Content-Type: application/json" \
-  -d '{"firstName":"Test","lastName":"User","email":"your@email.com","subject":"Test","message":"Test message"}'
+  -d '{
+    "firstName": "Test",
+    "lastName": "User",
+    "email": "test@example.com",
+    "subject": "Test",
+    "message": "Test message"
+  }'
 ```
 
 Expected response: `{"ok":true}`
 
-### Frontend test
-1. Deploy the updated frontend (commit + push → GitHub Actions → S3 + CloudFront)
-2. Open `https://yourdomain.com`
-3. Fill the contact form and click **"Nachricht senden"**
-4. Check the inbox for the delivered email
-
 ---
 
-## 8) Troubleshooting
+## Troubleshooting
 
-### Lambda never runs (no CloudWatch logs)
-- Check that `POST /contact` route exists in API Gateway
-- Check that Lambda integration is attached to the route
-- Verify the `data-api-url` in `index.html` is correct (no double `/contact`)
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| Site returns 403 | S3 bucket empty | Deploy manually with `aws s3 sync` |
+| ACM stuck at "Pending Validation" | Wrong hosted zone | Use registrar zone ID in `route53.tf` |
+| `EntityAlreadyExists` on Lambda permission | Statement ID conflict | Use unique `statement_id` per site |
+| GitHub Actions not triggering | Missing secrets or wrong file path | Check secrets and `.github/workflows/deploy.yml` |
+| `Cannot find module 'aws-sdk'` | Using v2 SDK with nodejs18+ | Switch to `nodejs20.x` and use SDK v3 |
 
-### Check CloudWatch logs
-```
-https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fcontact-form-send-email
-```
+### Manual Deploy (when Actions fails)
 
-Common errors and fixes:
+```bash
+aws s3 sync ./ s3://nexawelt.de \
+  --exclude "terraform-static-website/*" \
+  --exclude ".github/*" \
+  --exclude ".git/*" \
+  --exclude "*.md"
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| `Cannot find module 'aws-sdk'` | Node.js 18 runtime | Change to `nodejs16.x` in `contact-api.tf` |
-| `Internal Server Error` / 500 | Lambda crash | Check CloudWatch logs for details |
-| `404 Not Found` | Wrong URL path | Remove `/contact` from `data-api-url` in `index.html` |
-| CORS error | Wrong origin | Test from `https://yourdomain.com`, not S3 URL |
-| Mail not arriving | SES sandbox | Verify recipient email in SES Console |
-
-### Check SES sending quota
-```
-https://console.aws.amazon.com/ses/home?region=us-east-1#/account
-```
-"Emails sent" counter increasing = Lambda is calling SES successfully.
-
-### Check SES suppression list
-If an email was previously bounced, it may be on the suppression list:
-```
-https://console.aws.amazon.com/ses/home?region=us-east-1#/suppression-list
+aws cloudfront create-invalidation \
+  --distribution-id EXXXXXXXXXX \
+  --paths "/*"
 ```
 
 ---
 
-## Files touched in this extension
+## Project Structure
 
-- `contact-api.tf` — API Gateway + Lambda + SES resources
-- `lambda/contact/index.js` — email sending logic
-- `variables.tf` — added `contact_to_email`
-- `cv-website/index.html` — `data-api-url` attribute on the form
+```
+nexawelt/
+├── index.html
+├── error.html
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+└── terraform-static-website/
+    ├── main.tf
+    ├── variables.tf
+    ├── s3.tf
+    ├── cloudfront.tf
+    ├── route53.tf
+    ├── cert.tf
+    ├── contact-api.tf
+    ├── outputs.tf
+    └── lambda/
+        └── contact/
+            └── index.js
+```
 
 ---
 
-## What if you only want the base static site?
+## References
 
-Use only the base `README.md`. This extension can be ignored if you do not need email sending from the contact form.
+- [AWS CloudFront Documentation](https://docs.aws.amazon.com/cloudfront/)
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- [AWS SES Sandbox](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html)
+- [GitHub Actions – Configure AWS Credentials](https://github.com/aws-actions/configure-aws-credentials)
