@@ -33,3 +33,4 @@ delete-cname.json
 
 # Empty or corrupted files
 [
+terraform-static-website/.build/
