@@ -104,7 +104,7 @@ resource "aws_lambda_function" "contact" {
 ########################
 
 resource "aws_apigatewayv2_api" "contact" {
-  name          = "contact-form-api"
+  name          = "nexawelt-contact-api"
   protocol_type = "HTTP"
 
   cors_configuration {
