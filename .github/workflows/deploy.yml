@@ -29,10 +29,7 @@ jobs:
         mkdir -p deploy-temp
         cp index.html deploy-temp/
         cp error.html deploy-temp/
-        cp -r css deploy-temp/
-        cp -r js deploy-temp/
-        cp -r assets deploy-temp/
-        cp -r src deploy-temp/
+        
 
     - name: Sync website files to S3 with cache control
       run: |
