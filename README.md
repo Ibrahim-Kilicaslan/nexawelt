@@ -1,264 +1,322 @@
-# CV Website – Automated Static Site on AWS with Terraform & GitHub Actions
+# NexaWelt – Automated Static Website on AWS with Terraform & GitHub Actions
 
-This project is a fully automated, professional CV (resume) website hosted on AWS. It uses Infrastructure as Code (IaC) with Terraform and continuous deployment via GitHub Actions. The site is globally available, secure (HTTPS), and easy to update—just push to GitHub!
+> 🇹🇷 Türkçe dokümantasyon için: [README.tr.md](./README.tr.md)
 
----
-
-## 🚀 Features
-- **Modern, responsive CV website** (HTML, CSS, JS, images, assets)
-- **AWS S3** for static website hosting
-- **AWS CloudFront** for CDN, HTTPS, and custom domains
-- **AWS Route53** for DNS management
-- **AWS ACM** for free SSL certificates (wildcard support)
-- **Terraform** for modular, repeatable infrastructure
-- **GitHub Actions** for automatic deployment (CI/CD)
-- **Best practices** for security, automation, and maintainability
+This project provisions a fully automated static website hosted on AWS.
+Infrastructure is managed as code with Terraform, and every push to `main` triggers automatic deployment via GitHub Actions.
 
 ---
 
-## 🗂️ Project Structure 
+## Features
+
+- Static website hosted on **AWS S3**
+- Global CDN and HTTPS via **AWS CloudFront**
+- DNS management with **AWS Route53**
+- Free wildcard SSL certificate via **AWS ACM**
+- Contact form backend with **AWS Lambda + API Gateway + SES**
+- Full **Infrastructure as Code** with Terraform
+- Automatic CI/CD pipeline with **GitHub Actions**
+
+---
+
+## Architecture
 
 ```
-cv-website/
-├── assets/                # Images, icons, fonts
-├── css/                   # Stylesheets
-├── js/                    # JavaScript files
-├── src/                   # HTML sections (for modular editing)
-│   ├── home.html
-│   ├── berufserfahrungen.html
-│   ├── kompetenzen.html
-│   ├── projekte.html
-│   ├── bildungs.html
-│   └── kontakt.html
-├── index.html             # Main entry point
-├── error.html             # Custom error page (for 404/403)
-├── terraform-static-website/ # All Terraform IaC code
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── s3.tf
-│   ├── cert.tf
-│   ├── route53.tf
-│   ├── cloudfront.tf
-│   ├── outputs.tf
-│   └── README.md
-├── .github/workflows/deploy.yml # GitHub Actions CI/CD pipeline
-├── .gitignore             # Ignore Terraform state, cache, temp, etc.
-├── AWS_IAM_SETUP.md       # Guide for AWS IAM user & GitHub secrets
-└── README.md              # This file
+Internet
+    │
+    ▼
+Route53 (nexawelt.de)
+    │
+    ▼
+CloudFront (CDN + HTTPS + Cache)
+    │
+    ▼
+S3 Bucket (static files)
+    │
+    ├── Lambda (contact-form-send-email)
+    │       │
+    │       ▼
+    │     SES (email delivery)
+    │
+    └── API Gateway (POST /contact)
 ```
 
 ---
 
-## 🛠️ Local Development
+## Project Structure
 
-1. **Clone the repository:**
-   ```sh
-   git clone <your-repo-url>
-   cd cv-website
-   ```
-2. **Edit your website:**
-   - Main file: `index.html`
-   - Styles: `css/styles.css`
-   - JS: `js/scripts.js`
-   - Images: `assets/images/`
-   - Modular HTML: `src/`
-3. **Preview locally:**
-   - Use VS Code Live Server or `python3 -m http.server` to preview.
-
----
-
-
-## ☁️ Infrastructure as Code (Terraform)
-
-All AWS resources are managed with Terraform for full reproducibility and automation.
-
-### **What's Automated?**
-- S3 bucket for static hosting
-- CloudFront distribution (CDN, HTTPS)
-- Route53 hosted zone and DNS records
-- ACM SSL certificate (wildcard, auto-validation)
-
-### **How to Deploy Infrastructure:**
-1. **Install Terraform:** [terraform.io/downloads](https://www.terraform.io/downloads)
-2. **Configure AWS credentials** (e.g. with `aws configure` or environment variables)
-3. **Edit variables:**
-   - `terraform-static-website/variables.tf` (set your domain, region, etc.)
-4. **Initialize Terraform:**
-   ```sh
-   cd terraform-static-website
-   terraform init
-   ```
-5. **Review the plan:**
-   ```sh
-   terraform plan
-   ```
-6. **Apply the infrastructure:**
-   ```sh
-   terraform apply
-   ```
-7. **Check outputs:**
-   - S3 website endpoint
-   - CloudFront domain
-   - Route53 zone name
-
-> **Note:**
-> - All DNS records should be managed by Terraform. Delete any manual records in Route53 before applying.
-> - ACM certificates for CloudFront must be created in `us-east-1`.
-> - S3 bucket names must be globally unique.
+```
+nexawelt/
+├── index.html                           # Main page
+├── error.html                           # Custom 404/403 error page
+├── .github/
+│   └── workflows/
+│       └── deploy.yml                   # GitHub Actions CI/CD pipeline
+├── .gitignore
+├── AWS_IAM_SETUP.md                     # IAM user & GitHub Secrets guide
+├── README.md                            # This file (English)
+├── README.tr.md                         # Turkish documentation
+└── terraform-static-website/
+    ├── main.tf                          # Provider configuration
+    ├── variables.tf                     # Input variables
+    ├── s3.tf                            # S3 bucket
+    ├── cloudfront.tf                    # CloudFront distribution
+    ├── route53.tf                       # DNS records
+    ├── cert.tf                          # ACM SSL certificate
+    ├── contact-api.tf                   # Lambda + API Gateway + SES
+    ├── outputs.tf                       # Terraform outputs
+    └── lambda/
+        └── contact/
+            └── index.js                 # Lambda function code
+```
 
 ---
 
-## 🔐 AWS IAM & GitHub Secrets Setup
+## Prerequisites
 
-To enable GitHub Actions to deploy to AWS, you need an IAM user with limited permissions and to store its credentials as GitHub secrets.
-
-See [AWS_IAM_SETUP.md](AWS_IAM_SETUP.md) for a full, step-by-step guide.
-
-**Required GitHub secrets:**
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
-- `CLOUDFRONT_DISTRIBUTION_ID`
+- AWS account with CLI configured (`aws configure`)
+- Terraform installed (`terraform -version`)
+- Domain registered in AWS Route53
+- GitHub account
 
 ---
 
-## 🤖 CI/CD: Automatic Deployment with GitHub Actions
+## ⚠️ Critical: Duplicate Hosted Zone Problem
 
-Every push to `main` triggers a workflow that:
-1. Builds a deployment directory with only website files
-2. Syncs files to S3 (removes deleted files)
-3. Invalidates CloudFront cache (so changes are live immediately)
+When you purchase a domain through AWS, a Hosted Zone is **automatically created** by the registrar.
+Do **not** create a second zone with Terraform's `aws_route53_zone` resource — this causes ACM validation to hang indefinitely.
 
-**Workflow file:** `.github/workflows/deploy.yml`
+**Wrong (do not use):**
+```hcl
+resource "aws_route53_zone" "main" {
+  name = var.domain_name
+}
+```
 
-**How it works:**
-- Only web files are deployed (Terraform, .git, temp files, etc. are ignored)
-- Secure: AWS credentials are never stored in code, only as GitHub secrets
-- Fast: Only changed files are uploaded
+**Correct (use this):**
+```hcl
+data "aws_route53_zone" "main" {
+  zone_id = "ZXXXXXXXXXXXXXXXXX"  # copy from AWS Console
+}
+```
+
+Find your Hosted Zone ID:
+```
+AWS Console → Route53 → Hosted zones → click your domain → Zone ID
+```
 
 ---
 
-### 💾 Saving and Pushing Your Changes
+## Infrastructure Setup (Terraform)
 
-To save your changes and push them to GitHub:
+### 1. Clone the Repository
 
-```sh
+```bash
+git clone https://github.com/Ibrahim-Kilicaslan/nexawelt.git
+cd nexawelt/terraform-static-website
+```
+
+### 2. Update Variables
+
+In `variables.tf`:
+
+```hcl
+variable "domain_name" {
+  default = "nexawelt.de"
+}
+
+variable "aliases" {
+  default = ["nexawelt.de", "www.nexawelt.de", "info.nexawelt.de"]
+}
+
+variable "contact_to_email" {
+  default = "info@nexawelt.de"
+}
+```
+
+In `route53.tf`, set your Zone ID:
+
+```hcl
+data "aws_route53_zone" "main" {
+  zone_id = "ZXXXXXXXXXXXXXXXXX"
+}
+```
+
+### 3. Initialize Terraform
+
+```bash
+terraform init
+```
+
+### 4. ⚠️ Two-Step Apply (Required)
+
+Direct `terraform apply` will fail because ACM validation records use `for_each` and Terraform cannot determine the keys until the certificate exists.
+
+**Step 1 — Create ACM certificate first:**
+```bash
+terraform apply -target=aws_acm_certificate.cert -target=aws_route53_zone.main
+```
+
+**Step 2 — Create all remaining resources:**
+```bash
+terraform apply
+```
+
+> `aws_acm_certificate_validation` may take 5–15 minutes while DNS propagates. This is normal — do not close the terminal.
+
+### 5. Outputs
+
+```
+cloudfront_domain_name = "xxxxx.cloudfront.net"
+contact_api_endpoint   = "https://xxxxx.execute-api.us-east-1.amazonaws.com"
+route53_zone_name      = "nexawelt.de"
+s3_website_endpoint    = "nexawelt.de.s3-website-us-east-1.amazonaws.com"
+```
+
+---
+
+## GitHub Actions Setup
+
+### Required Secrets
+
+GitHub → repository → Settings → Secrets and variables → Actions → New repository secret
+
+| Secret | Value | Where to Find |
+|--------|-------|---------------|
+| `AWS_ACCESS_KEY_ID` | IAM access key | `~/.aws/credentials` |
+| `AWS_SECRET_ACCESS_KEY` | IAM secret key | `~/.aws/credentials` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | CloudFront ID | Terraform output or AWS Console |
+
+See [AWS_IAM_SETUP.md](./AWS_IAM_SETUP.md) for full IAM permissions guide.
+
+### Pipeline Flow
+
+```
+git push → main branch
+    │
+    ▼
+GitHub Actions triggered
+    │
+    ├── Configure AWS credentials
+    ├── Copy files to deploy-temp/
+    ├── HTML  → S3 (no-cache)
+    ├── CSS/JS → S3 (5 min cache)
+    ├── Assets → S3 (1 hour cache)
+    ├── CloudFront cache invalidation
+    └── Site availability check
+```
+
+> Changes inside `terraform-static-website/**` do not trigger the pipeline.
+
+---
+
+## Local Development
+
+```bash
+# Preview locally
+python3 -m http.server 8080
+# or use VS Code Live Server
+```
+
+### Push Changes
+
+```bash
 git add .
-git commit -m "Your commit message"
-git push -u origin main
+git commit -m "your message"
+git push
 ```
 
-- `git add .` : Stages all changes
-- `git commit -m "Your commit message"` : Adds a description to your changes
-- `git push -u origin main` : Sends your changes to GitHub
+### Manual Deploy (when Actions fails)
 
-> Note: You need to have permission (e.g., be a collaborator) to push to the repository.
->
-> After the first push with `git push -u origin main`, you can use just `git push` for subsequent pushes.
+```bash
+aws s3 sync ./ s3://nexawelt.de \
+  --exclude "terraform-static-website/*" \
+  --exclude ".github/*" \
+  --exclude ".git/*" \
+  --exclude "*.md"
 
-#### Alternative: Manual Upload to S3
-
-If you want to upload your files to S3 manually (without GitHub Actions), you can use one of the following methods:
-
-**1. AWS Management Console (Web UI):**
-- Go to the [AWS S3 Console](https://s3.console.aws.amazon.com/s3/home).
-- Select your bucket (e.g., `ibrahimkilicaslan.click`).
-- Click the "Upload" button.
-- Add your files or folders and start the upload.
-
-**2. AWS CLI (Terminal):**
-- Make sure you have the AWS CLI installed and configured (`aws configure`).
-- To upload all files and folders in your current directory:
-  ```sh
-  aws s3 sync . s3://ibrahimkilicaslan.click --delete
-  ```
-- To upload a single file:
-  ```sh
-  aws s3 cp index.html s3://ibrahimkilicaslan.click/index.html
-  ```
-
-> Note: Manual uploads will not trigger CloudFront cache invalidation. If you use CloudFront and want changes to appear immediately, you may need to invalidate the cache manually:
-> ```sh
-> aws cloudfront create-invalidation --distribution-id <DISTRIBUTION_ID> --paths '/*'
-> ```
+aws cloudfront create-invalidation \
+  --distribution-id EXXXXXXXXXX \
+  --paths "/*"
+```
 
 ---
 
-## 📝 Best Practices & Tips
-- **Never commit AWS credentials or Terraform state to git**
-- **Use .gitignore** to keep your repo clean
-- **All infrastructure is code**: no manual AWS Console changes
-- **Use modular Terraform files** for clarity and reusability
-- **Test locally before pushing**
-- **Monitor GitHub Actions logs** for deployment status
-- **Rotate AWS keys regularly**
+## Lambda Runtime Note
+
+> ⚠️ **`nodejs16.x` is deprecated — use `nodejs20.x`**
+
+In `contact-api.tf`:
+
+```hcl
+runtime = "nodejs20.x"
+```
+
+With `nodejs20.x`, use SDK v3 in Lambda:
+
+```javascript
+const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
+```
 
 ---
 
-## 🧩 Customization
-- **Change your domain:** Edit `variables.tf` and update Route53/CloudFront settings
-- **Add subdomains:** Update `cloudfront.tf` and `route53.tf`
-- **Change region:** Edit `variables.tf`
-- **Add new sections:** Create new HTML files in `src/` and link them in `index.html`
-- **Change design:** Edit `css/styles.css` and assets
+## SES Sandbox Mode
+
+New AWS accounts are in SES sandbox mode by default. Both sender domain and recipient email must be verified.
+
+**Verify recipient email:**
+```
+AWS Console → SES → Verified identities → Create identity → Email address
+```
+
+**Request production access:**
+```
+AWS Console → SES → Account dashboard → Request production access
+```
 
 ---
 
-## 🆘 Troubleshooting
-- **DNS not working?** Check NS records at your domain registrar and Route53
-- **SSL error?** Ensure ACM certificate is validated and in `us-east-1`
-- **S3 access denied?** Check bucket policy and public access settings
-- **GitHub Actions failed?** Check logs in the Actions tab
-- **CloudFront not updating?** Invalidation may take a few minutes
+## Troubleshooting
+
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| Site returns 403 | S3 bucket empty | Deploy manually with `aws s3 sync` |
+| ACM stuck at "Pending Validation" | Wrong hosted zone | Use registrar zone ID in `route53.tf` |
+| `EntityAlreadyExists` on Lambda permission | Statement ID conflict from another site | Use unique `statement_id` per site |
+| GitHub Actions not triggering | Missing secrets or wrong workflow path | Check secrets and `.github/workflows/deploy.yml` |
+| `Cannot find module 'aws-sdk'` | Using SDK v2 with nodejs18+ | Switch to `nodejs20.x` and use SDK v3 |
+| DNS not resolving | NS records mismatch | Check NS records in Route53 and registrar |
+| CloudFront not updating | Cache not invalidated | Run `create-invalidation --paths '/*'` |
 
 ---
 
-## 📚 Resources
-- [Terraform Documentation](https://www.terraform.io/docs/)
+## Best Practices
+
+- Never commit AWS credentials or Terraform state to git
+- Use `.gitignore` to exclude `.terraform/`, `*.tfstate`, `.build/`
+- No manual changes in AWS Console — everything via Terraform
+- Rotate AWS IAM keys regularly
+- Test locally before pushing
+
+---
+
+## Resources
+
+- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
 - [AWS S3 Static Website Hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
 - [AWS CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
 - [AWS Route53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
-- [GitHub Actions](https://docs.github.com/en/actions)
+- [AWS SES Sandbox](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html)
+- [GitHub Actions – Configure AWS Credentials](https://github.com/aws-actions/configure-aws-credentials)
 
 ---
 
-## 📝 License
+## Author
+
+Ibrahim Kilicaslan — [github.com/Ibrahim-Kilicaslan](https://github.com/Ibrahim-Kilicaslan)
+
+---
+
+## License
+
 MIT
-
----
-
-## 👤 Author
-Ibrahim Kilicaslan
-
----
-
-## 💡 Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
-## 📚 Resources
-- [Terraform Documentation](https://www.terraform.io/docs/)
-- [AWS S3 Static Website Hosting](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html)
-- [AWS CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html)
-- [AWS Route53](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
-- [GitHub Actions](https://docs.github.com/en/actions)
-
----
-
-## 📝 License
-MIT
-
----
-
-## 👤 Author
-Ibrahim Kilicaslan
-
----
-
-## 💡 Contributing
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
----
-
-## ⚠️ Important Note on DNS and ACM Validation
-
