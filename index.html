@@ -1,37 +1,80 @@
+cat << 'HTMLEOF' > /mnt/data/index.html
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NexaWelt – Tech Trade & Services | Berlin & ganz Deutschland</title>
-  <meta name="description" content="NexaWelt – Ihr Partner für An- und Verkauf von Elektronik & Gebrauchtwaren in Berlin und ganz Deutschland. Faire Preise, schnelle Abwicklung, IT-Services." />
+
+  <!-- SEO -->
+  <title>NexaWelt – Ankauf & Verkauf von Elektronik & Gebrauchtwaren | Berlin & ganz Deutschland</title>
+  <meta name="description" content="NexaWelt – Ihr Partner für An- und Verkauf von Elektronik & Gebrauchtwaren in Berlin und deutschlandweit. Faire Preise, schnelle Abwicklung, IT-Services. Smartphones, Laptops, Computer & mehr." />
+  <meta name="keywords" content="Elektronik Ankauf Berlin, Gebrauchtwaren Verkauf, Laptop Ankauf, iPhone Ankauf, Handy verkaufen Berlin, Elektronik An- und Verkauf Deutschland, IT Geräte Ankauf, NexaWelt" />
+  <meta name="author" content="NexaWelt – Inh. Ibrahim Kilicaslan" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.nexawelt.de/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NexaWelt – Ankauf & Verkauf von Elektronik & Gebrauchtwaren" />
+  <meta property="og:description" content="Faire Preise. Schnelle Abwicklung. Ihr zuverlässiger Partner für Elektronik & Gebrauchtwaren – Berlin & ganz Deutschland." />
+  <meta property="og:url" content="https://www.nexawelt.de/" />
+  <meta property="og:site_name" content="NexaWelt" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:image" content="https://www.nexawelt.de/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NexaWelt – Ankauf & Verkauf von Elektronik" />
+  <meta name="twitter:description" content="Faire Preise. Schnelle Abwicklung. Berlin & ganz Deutschland." />
+  <meta name="twitter:image" content="https://www.nexawelt.de/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "NexaWelt",
+    "alternateName": "NexaWelt – Tech Trade & Services",
+    "description": "An- und Verkauf von Elektronik & Gebrauchtwaren, IT-Dienstleistungen, Online-Handel, App-Entwicklung und Beratung.",
+    "url": "https://www.nexawelt.de",
+    "telephone": "+4917680894184",
+    "email": "info@nexawelt.de",
+    "founder": { "@type": "Person", "name": "Ibrahim Kilicaslan" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Berlin", "addressCountry": "DE" },
+    "areaServed": { "@type": "Country", "name": "Germany" },
+    "serviceType": ["Ankauf von Elektronik","Verkauf von Gebrauchtwaren","IT-Dienstleistungen","Online-Handel","App-Entwicklung","Online Marketing","Beratung"],
+    "priceRange": "€",
+    "currenciesAccepted": "EUR",
+    "paymentAccepted": "Cash, Bank Transfer",
+    "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "18:00" },
+    "sameAs": []
+  }
+  </script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --blue: #1A3F6F;
-      --blue-mid: #1E5FA8;
-      --blue-light: #2a7fd4;
-      --orange: #E87722;
-      --orange-light: #f59340;
-      --text: #1a1a1a;
-      --muted: #555;
-      --faint: #888;
-      --border: #ddd;
-      --bg: #ffffff;
-      --bg2: #f5f7fa;
-      --bg3: #eef2f8;
+      --blue: #1A3F6F; --blue-mid: #1E5FA8; --blue-light: #2a7fd4;
+      --orange: #E87722; --orange-light: #f59340;
+      --text: #1a1a1a; --muted: #555; --faint: #888; --border: #ddd;
+      --bg: #ffffff; --bg2: #f5f7fa; --bg3: #eef2f8;
     }
     html { scroll-behavior: smooth; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      background: rgba(26,63,111,0.97); backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%; height: 64px;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(26,63,111,0.97); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 64px; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo-text { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
     .nav-logo-text span { color: var(--orange); }
@@ -48,18 +91,8 @@
     .hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; display: block; transition: all 0.3s; }
 
     /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--blue) 0%, #0f2a50 60%, #1a1a2e 100%);
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 100px 5% 60px;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 30%, rgba(232,119,34,0.12) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(30,95,168,0.2) 0%, transparent 50%);
-    }
+    .hero { min-height: 100vh; background: linear-gradient(135deg, var(--blue) 0%, #0f2a50 60%, #1a1a2e 100%); display: flex; align-items: center; justify-content: center; text-align: center; padding: 100px 5% 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(232,119,34,0.12) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(30,95,168,0.2) 0%, transparent 50%); }
     .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(232,119,34,0.15); border: 1px solid rgba(232,119,34,0.4); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600; color: var(--orange-light); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 28px; }
     .hero-badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); animation: pulse 2s infinite; }
@@ -87,14 +120,18 @@
     .center { text-align: center; }
     .center .section-sub { margin-left: auto; margin-right: auto; }
 
+    /* ── SCROLL ANIMATION ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
     /* ── ANKAUF ── */
     .ankauf { background: var(--bg); }
     .ankauf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1100px; margin: 0 auto; }
-    .ankauf-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
-      padding: 32px; transition: all 0.25s; cursor: default;
-      border-top: 3px solid var(--blue);
-    }
+    .ankauf-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: all 0.25s; cursor: default; border-top: 3px solid var(--blue); }
     .ankauf-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,63,111,0.1); border-top-color: var(--orange); }
     .card-icon { font-size: 36px; margin-bottom: 14px; }
     .card-title { font-size: 20px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
@@ -161,17 +198,36 @@
     .form-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 20px; }
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 8px; padding: 12px 14px; font-size: 14px; color: #fff;
-      outline: none; transition: border-color 0.2s; font-family: inherit;
-    }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: #fff; outline: none; transition: border-color 0.2s; font-family: inherit; }
     .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
     .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--orange); }
     .form-group select option { background: var(--blue); color: #fff; }
     .form-group textarea { resize: vertical; min-height: 100px; }
     .form-submit { width: 100%; background: var(--orange); color: #fff; border: none; border-radius: 10px; padding: 14px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
     .form-submit:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    /* ── IMPRESSUM & DATENSCHUTZ MODAL ── */
+    .legal-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.7); backdrop-filter: blur(6px); align-items: center; justify-content: center; padding: 24px; }
+    .legal-modal.open { display: flex; }
+    .legal-content { background: #fff; border-radius: 16px; max-width: 720px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 40px; position: relative; }
+    .legal-content h2 { font-size: 24px; font-weight: 800; color: var(--blue); margin-bottom: 20px; }
+    .legal-content h3 { font-size: 17px; font-weight: 700; color: var(--blue); margin-top: 24px; margin-bottom: 8px; }
+    .legal-content p, .legal-content li { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 10px; }
+    .legal-content ul { padding-left: 20px; }
+    .legal-close { position: absolute; top: 16px; right: 20px; background: none; border: none; font-size: 28px; color: var(--faint); cursor: pointer; transition: color 0.2s; }
+    .legal-close:hover { color: var(--orange); }
+
+    /* ── COOKIE BANNER ── */
+    .cookie-banner { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1500; background: rgba(15,42,80,0.97); backdrop-filter: blur(10px); padding: 20px 5%; box-shadow: 0 -4px 24px rgba(0,0,0,0.25); }
+    .cookie-banner.show { display: block; }
+    .cookie-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    .cookie-text { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.7; flex: 1; min-width: 280px; }
+    .cookie-text a { color: var(--orange-light); text-decoration: underline; cursor: pointer; }
+    .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .cookie-accept { background: var(--orange); color: #fff; border: none; border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .cookie-accept:hover { background: var(--orange-light); }
+    .cookie-decline { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+    .cookie-decline:hover { background: rgba(255,255,255,0.15); }
 
     /* ── WHATSAPP FLOAT ── */
     .whatsapp-float { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25D366; color: #fff; border-radius: 50%; width: 58px; height: 58px; display: flex; align-items: center; justify-content: center; font-size: 28px; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transition: all 0.2s; }
@@ -180,7 +236,7 @@
     /* ── FOOTER ── */
     footer { background: #0a1929; color: rgba(255,255,255,0.5); text-align: center; padding: 36px 5%; font-size: 13px; line-height: 2; }
     footer strong { color: rgba(255,255,255,0.8); }
-    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px; }
+    footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 10px; cursor: pointer; }
     footer a:hover { color: var(--orange); }
     .footer-logo { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.5px; margin-bottom: 8px; }
     .footer-logo span { color: var(--orange); }
@@ -199,6 +255,8 @@
       .kontakt-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 20px; }
       .hero-divider { display: none; }
+      .cookie-inner { flex-direction: column; text-align: center; }
+      .legal-content { padding: 24px; }
     }
     @media (max-width: 480px) {
       .vorteile-grid, .services-grid { grid-template-columns: 1fr; }
@@ -212,7 +270,7 @@
   <a href="#" class="nav-logo">
     <div>
       <div class="nav-logo-text">Nexa<span>Welt</span></div>
-      <div class="nav-logo-sub">Tech · Trade · Services</div>
+      <div class="nav-logo-sub">Tech &middot; Trade &middot; Services</div>
     </div>
   </a>
   <ul class="nav-links" id="navLinks">
@@ -237,17 +295,17 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-badge-dot"></span> Berlin & ganz Deutschland</div>
-    <h1 id="hero-h1">Ihr Partner für <em>Elektronik</em> &amp; Gebrauchtwaren</h1>
-    <p class="hero-sub" id="hero-sub">Faire Preise. Schnelle Abwicklung. Seriöser Ankauf & Verkauf – von Einzelgeräten bis zum Großposten.</p>
+    <div class="hero-badge"><span class="hero-badge-dot"></span> Berlin &amp; ganz Deutschland</div>
+    <h1 id="hero-h1">Ihr Partner f&uuml;r <em>Elektronik</em> &amp; Gebrauchtwaren</h1>
+    <p class="hero-sub" id="hero-sub">Faire Preise. Schnelle Abwicklung. Seri&ouml;ser Ankauf &amp; Verkauf &ndash; von Einzelger&auml;ten bis zum Gro&szlig;posten.</p>
     <div class="hero-btns">
-      <a href="#ankauf" class="btn-primary" id="btn-ankauf-cta">📦 Jetzt verkaufen</a>
-      <a href="#kontakt" class="btn-secondary" id="btn-kontakt-cta">📞 Kostenloses Angebot</a>
+      <a href="#ankauf" class="btn-primary" id="btn-ankauf-cta">&#128230; Jetzt verkaufen</a>
+      <a href="#kontakt" class="btn-secondary" id="btn-kontakt-cta">&#128222; Kostenloses Angebot</a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-num">🇩🇪</div><div class="hero-stat-label" id="stat1">Ganz Deutschland</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">&#127465;&#127466;</div><div class="hero-stat-label" id="stat1">Ganz Deutschland</div></div>
       <div class="hero-divider"></div>
-      <div class="hero-stat"><div class="hero-stat-num">B2B</div><div class="hero-stat-label" id="stat2">& B2C</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">B2B</div><div class="hero-stat-label" id="stat2">&amp; B2C</div></div>
       <div class="hero-divider"></div>
       <div class="hero-stat"><div class="hero-stat-num">24h</div><div class="hero-stat-label" id="stat3">Antwortzeit</div></div>
       <div class="hero-divider"></div>
@@ -258,34 +316,34 @@
 
 <!-- ANKAUF -->
 <section class="ankauf" id="ankauf">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label" id="lbl-ankauf">Wir kaufen an</div>
     <h2 class="section-title" id="title-ankauf">Was wir ankaufen</h2>
-    <p class="section-sub" id="sub-ankauf">Ob einzelnes Gerät oder ganzes Lager – wir kaufen fair und schnell. Privatpersonen & Unternehmen willkommen.</p>
+    <p class="section-sub" id="sub-ankauf">Ob einzelnes Ger&auml;t oder ganzes Lager &ndash; wir kaufen fair und schnell. Privatpersonen &amp; Unternehmen willkommen.</p>
   </div>
   <div class="ankauf-grid">
-    <div class="ankauf-card">
-      <div class="card-icon">📱</div>
-      <div class="card-title" id="ac1-title">Smartphones & Tablets</div>
-      <div class="card-text" id="ac1-text">Ankauf aller Marken und Modelle – mit oder ohne Gebrauchsspuren. Sofortige Preisbewertung.</div>
+    <div class="ankauf-card reveal-left">
+      <div class="card-icon">&#128241;</div>
+      <div class="card-title" id="ac1-title">Smartphones &amp; Tablets</div>
+      <div class="card-text" id="ac1-text">Ankauf aller Marken und Modelle &ndash; mit oder ohne Gebrauchsspuren. Sofortige Preisbewertung.</div>
       <div class="card-tags"><span class="tag">iPhone</span><span class="tag">Samsung</span><span class="tag">iPad</span><span class="tag">Huawei</span><span class="tag">Alle Marken</span></div>
     </div>
-    <div class="ankauf-card">
-      <div class="card-icon">💻</div>
-      <div class="card-title" id="ac2-title">Laptops & Computer</div>
-      <div class="card-text" id="ac2-text">MacBooks, Windows-Laptops, Desktop-PCs, Workstations – wir bewerten schnell und zahlen fair.</div>
+    <div class="ankauf-card reveal-right">
+      <div class="card-icon">&#128187;</div>
+      <div class="card-title" id="ac2-title">Laptops &amp; Computer</div>
+      <div class="card-text" id="ac2-text">MacBooks, Windows-Laptops, Desktop-PCs, Workstations &ndash; wir bewerten schnell und zahlen fair.</div>
       <div class="card-tags"><span class="tag">MacBook</span><span class="tag">Dell</span><span class="tag">Lenovo</span><span class="tag">HP</span><span class="tag">Asus</span></div>
     </div>
-    <div class="ankauf-card">
-      <div class="card-icon">🖥️</div>
-      <div class="card-title" id="ac3-title">Monitore & Peripherie</div>
-      <div class="card-text" id="ac3-text">Bildschirme, Drucker, Tastaturen, Mäuse, Dockingstationen – auch in größeren Mengen.</div>
+    <div class="ankauf-card reveal-left">
+      <div class="card-icon">&#128421;&#65039;</div>
+      <div class="card-title" id="ac3-title">Monitore &amp; Peripherie</div>
+      <div class="card-text" id="ac3-text">Bildschirme, Drucker, Tastaturen, M&auml;use, Dockingstationen &ndash; auch in gr&ouml;&szlig;eren Mengen.</div>
       <div class="card-tags"><span class="tag">Monitore</span><span class="tag">Drucker</span><span class="tag">Netzwerk</span><span class="tag">Server</span></div>
     </div>
-    <div class="ankauf-card">
-      <div class="card-icon">🔌</div>
+    <div class="ankauf-card reveal-right">
+      <div class="card-icon">&#128268;</div>
       <div class="card-title" id="ac4-title">Alle Arten von Waren</div>
-      <div class="card-text" id="ac4-text">Auch andere Gebrauchtwaren, Haushaltselektronik, Spielekonsolen, Zubehör und mehr.</div>
+      <div class="card-text" id="ac4-text">Auch andere Gebrauchtwaren, Haushaltselektronik, Spielekonsolen, Zubeh&ouml;r und mehr.</div>
       <div class="card-tags"><span class="tag">Konsolen</span><span class="tag">Kameras</span><span class="tag">Audio</span><span class="tag">Smart Home</span><span class="tag">Mehr</span></div>
     </div>
   </div>
@@ -293,132 +351,132 @@
 
 <!-- PROCESS -->
 <section class="process" id="process">
-  <div class="section-header center">
+  <div class="section-header center reveal">
     <div class="section-label" id="lbl-process">So einfach geht's</div>
     <h2 class="section-title" id="title-process">In 3 Schritten zum Geld</h2>
-    <p class="section-sub" id="sub-process">Kein Aufwand für Sie – wir kümmern uns um alles.</p>
+    <p class="section-sub" id="sub-process">Kein Aufwand f&uuml;r Sie &ndash; wir k&uuml;mmern uns um alles.</p>
   </div>
   <div class="process-steps">
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-num">1</div>
       <div class="step-title" id="step1-title">Anfrage senden</div>
-      <div class="step-text" id="step1-text">Schicken Sie uns eine kurze Liste oder Fotos Ihrer Geräte per E-Mail, WhatsApp oder Formular.</div>
+      <div class="step-text" id="step1-text">Schicken Sie uns eine kurze Liste oder Fotos Ihrer Ger&auml;te per E-Mail, WhatsApp oder Formular.</div>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-num">2</div>
       <div class="step-title" id="step2-title">Angebot erhalten</div>
       <div class="step-text" id="step2-text">Innerhalb von 24 Stunden erhalten Sie ein faires, transparentes Preisangebot von uns.</div>
     </div>
-    <div class="process-step">
+    <div class="process-step reveal">
       <div class="step-num">3</div>
-      <div class="step-title" id="step3-title">Abwicklung & Zahlung</div>
-      <div class="step-text" id="step3-text">Abholung, Versand oder Übergabe – ganz nach Ihren Wünschen. Zahlung sofort und sicher.</div>
+      <div class="step-title" id="step3-title">Abwicklung &amp; Zahlung</div>
+      <div class="step-text" id="step3-text">Abholung, Versand oder &Uuml;bergabe &ndash; ganz nach Ihren W&uuml;nschen. Zahlung sofort und sicher.</div>
     </div>
   </div>
 </section>
 
 <!-- VORTEILE -->
 <section class="vorteile" id="vorteile">
-  <div class="section-header center">
+  <div class="section-header center reveal">
     <div class="section-label" id="lbl-vorteil">Warum NexaWelt</div>
     <h2 class="section-title" id="title-vorteil">Ihre Vorteile</h2>
-    <p class="section-sub" id="sub-vorteil">Was uns von anderen unterscheidet – und warum Kunden aus ganz Deutschland zu uns kommen.</p>
+    <p class="section-sub" id="sub-vorteil">Was uns von anderen unterscheidet &ndash; und warum Kunden aus ganz Deutschland zu uns kommen.</p>
   </div>
   <div class="vorteile-grid">
-    <div class="vorteil-card"><div class="vorteil-icon">🇩🇪</div><div class="vorteil-title" id="v1t">Ganz Deutschland</div><div class="vorteil-text" id="v1s">Wir sind in Berlin ansässig, aber für Sie in ganz Deutschland tätig. Kein Problem!</div></div>
-    <div class="vorteil-card"><div class="vorteil-icon">⚡</div><div class="vorteil-title" id="v2t">Schnelle Abwicklung</div><div class="vorteil-text" id="v2s">Angebot innerhalb von 24 Stunden. Keine langen Wartezeiten, kein Papierkram.</div></div>
-    <div class="vorteil-card"><div class="vorteil-icon">💰</div><div class="vorteil-title" id="v3t">Faire Preise</div><div class="vorteil-text" id="v3s">Marktorientierte Preise, keine versteckten Abzüge. Sie bekommen den echten Wert.</div></div>
-    <div class="vorteil-card"><div class="vorteil-icon">👤</div><div class="vorteil-title" id="v4t">Privat & Gewerblich</div><div class="vorteil-text" id="v4s">Wir kaufen von Privatpersonen und Unternehmen – ohne Mindestmenge!</div></div>
-    <div class="vorteil-card"><div class="vorteil-icon">🤝</div><div class="vorteil-title" id="v5t">Persönlicher Service</div><div class="vorteil-text" id="v5s">Direkt mit dem Inhaber – kein Callcenter, keine Warteschleifen. Ehrlich & transparent.</div></div>
-    <div class="vorteil-card"><div class="vorteil-icon">♻️</div><div class="vorteil-title" id="v6t">Nachhaltig</div><div class="vorteil-text" id="v6s">Geräte erhalten ein zweites Leben. Ihr Beitrag zur Kreislaufwirtschaft & Umwelt.</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#127465;&#127466;</div><div class="vorteil-title" id="v1t">Ganz Deutschland</div><div class="vorteil-text" id="v1s">Wir sind in Berlin ans&auml;ssig, aber f&uuml;r Sie in ganz Deutschland t&auml;tig. Kein Problem!</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#9889;</div><div class="vorteil-title" id="v2t">Schnelle Abwicklung</div><div class="vorteil-text" id="v2s">Angebot innerhalb von 24 Stunden. Keine langen Wartezeiten, kein Papierkram.</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#128176;</div><div class="vorteil-title" id="v3t">Faire Preise</div><div class="vorteil-text" id="v3s">Marktorientierte Preise, keine versteckten Abz&uuml;ge. Sie bekommen den echten Wert.</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#128100;</div><div class="vorteil-title" id="v4t">Privat &amp; Gewerblich</div><div class="vorteil-text" id="v4s">Wir kaufen von Privatpersonen und Unternehmen &ndash; ohne Mindestmenge!</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#129309;</div><div class="vorteil-title" id="v5t">Pers&ouml;nlicher Service</div><div class="vorteil-text" id="v5s">Direkt mit dem Inhaber &ndash; kein Callcenter, keine Warteschleifen. Ehrlich &amp; transparent.</div></div>
+    <div class="vorteil-card reveal"><div class="vorteil-icon">&#9851;&#65039;</div><div class="vorteil-title" id="v6t">Nachhaltig</div><div class="vorteil-text" id="v6s">Ger&auml;te erhalten ein zweites Leben. Ihr Beitrag zur Kreislaufwirtschaft &amp; Umwelt.</div></div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section class="services" id="services">
-  <div class="section-header center">
+  <div class="section-header center reveal">
     <div class="section-label" id="lbl-svc">Unsere Services</div>
     <h2 class="section-title" id="title-svc">Mehr als nur Ankauf</h2>
-    <p class="section-sub" id="sub-svc">NexaWelt ist Ihr Full-Service-Partner für Tech, Trade & digitale Lösungen.</p>
+    <p class="section-sub" id="sub-svc">NexaWelt ist Ihr Full-Service-Partner f&uuml;r Tech, Trade &amp; digitale L&ouml;sungen.</p>
   </div>
   <div class="services-grid">
-    <div class="service-card"><div class="service-icon">🛒</div><div class="service-title" id="svc1t">Online-Handel</div><div class="service-text" id="svc1s">eBay, Amazon, Etsy – wir verkaufen für Sie auf allen großen Plattformen.</div></div>
-    <div class="service-card"><div class="service-icon">💻</div><div class="service-title" id="svc2t">IT-Dienstleistungen</div><div class="service-text" id="svc2s">Reparatur, Einrichtung, Datensicherheit – wir lösen Ihre IT-Probleme.</div></div>
-    <div class="service-card"><div class="service-icon">📱</div><div class="service-title" id="svc3t">App-Entwicklung</div><div class="service-text" id="svc3s">Individuelle Apps für Ihr Unternehmen – modern, schnell, zuverlässig.</div></div>
-    <div class="service-card"><div class="service-icon">📣</div><div class="service-title" id="svc4t">Online Marketing</div><div class="service-text" id="svc4s">SEO, Social Media, Google Ads – wir bringen Ihr Business nach vorne.</div></div>
+    <div class="service-card reveal"><div class="service-icon">&#128722;</div><div class="service-title" id="svc1t">Online-Handel</div><div class="service-text" id="svc1s">eBay, Amazon, Etsy &ndash; wir verkaufen f&uuml;r Sie auf allen gro&szlig;en Plattformen.</div></div>
+    <div class="service-card reveal"><div class="service-icon">&#128187;</div><div class="service-title" id="svc2t">IT-Dienstleistungen</div><div class="service-text" id="svc2s">Reparatur, Einrichtung, Datensicherheit &ndash; wir l&ouml;sen Ihre IT-Probleme.</div></div>
+    <div class="service-card reveal"><div class="service-icon">&#128241;</div><div class="service-title" id="svc3t">App-Entwicklung</div><div class="service-text" id="svc3s">Individuelle Apps f&uuml;r Ihr Unternehmen &ndash; modern, schnell, zuverl&auml;ssig.</div></div>
+    <div class="service-card reveal"><div class="service-icon">&#128227;</div><div class="service-title" id="svc4t">Online Marketing</div><div class="service-text" id="svc4s">SEO, Social Media, Google Ads &ndash; wir bringen Ihr Business nach vorne.</div></div>
   </div>
 </section>
 
 <!-- FAQ -->
 <section class="faq" id="faq">
-  <div class="section-header center">
+  <div class="section-header center reveal">
     <div class="section-label" id="lbl-faq">FAQ</div>
-    <h2 class="section-title" id="title-faq">Häufige Fragen</h2>
+    <h2 class="section-title" id="title-faq">H&auml;ufige Fragen</h2>
   </div>
   <div class="faq-list">
-    <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
       <div class="faq-q"><span id="fq1">Kaufen Sie auch von Privatpersonen?</span><span class="arrow">+</span></div>
-      <div class="faq-a" id="fa1">Ja, absolut! Wir kaufen sowohl von Privatpersonen als auch von Unternehmen. Es gibt keine Mindestmenge – auch einzelne Geräte sind willkommen.</div>
+      <div class="faq-a" id="fa1">Ja, absolut! Wir kaufen sowohl von Privatpersonen als auch von Unternehmen. Es gibt keine Mindestmenge &ndash; auch einzelne Ger&auml;te sind willkommen.</div>
     </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
       <div class="faq-q"><span id="fq2">Wie schnell bekomme ich ein Angebot?</span><span class="arrow">+</span></div>
-      <div class="faq-a" id="fa2">In der Regel innerhalb von 24 Stunden. Senden Sie uns einfach Fotos und eine kurze Beschreibung der Geräte – wir antworten so schnell wie möglich.</div>
+      <div class="faq-a" id="fa2">In der Regel innerhalb von 24 Stunden. Senden Sie uns einfach Fotos und eine kurze Beschreibung der Ger&auml;te &ndash; wir antworten so schnell wie m&ouml;glich.</div>
     </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span id="fq3">Sind Sie nur in Berlin tätig?</span><span class="arrow">+</span></div>
-      <div class="faq-a" id="fa3">Nein! Wir sind in ganz Deutschland aktiv. Abholung, Versand oder persönliche Übergabe – wir finden die beste Lösung für Sie, egal wo in Deutschland.</div>
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q"><span id="fq3">Sind Sie nur in Berlin t&auml;tig?</span><span class="arrow">+</span></div>
+      <div class="faq-a" id="fa3">Nein! Wir sind in ganz Deutschland aktiv. Abholung, Versand oder pers&ouml;nliche &Uuml;bergabe &ndash; wir finden die beste L&ouml;sung f&uuml;r Sie, egal wo in Deutschland.</div>
     </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
       <div class="faq-q"><span id="fq4">Wie wird der Preis ermittelt?</span><span class="arrow">+</span></div>
       <div class="faq-a" id="fa4">Wir orientieren uns an aktuellen Marktpreisen von eBay, Amazon und anderen Plattformen. Unsere Angebote sind fair, transparent und nachvollziehbar.</div>
     </div>
-    <div class="faq-item" onclick="toggleFaq(this)">
-      <div class="faq-q"><span id="fq5">Was passiert mit meinen Daten auf dem Gerät?</span><span class="arrow">+</span></div>
-      <div class="faq-a" id="fa5">Datensicherheit hat höchste Priorität. Alle Daten auf angekauften Geräten werden professionell und DSGVO-konform gelöscht, bevor die Geräte weiterverwendet werden.</div>
+    <div class="faq-item reveal" onclick="toggleFaq(this)">
+      <div class="faq-q"><span id="fq5">Was passiert mit meinen Daten auf dem Ger&auml;t?</span><span class="arrow">+</span></div>
+      <div class="faq-a" id="fa5">Datensicherheit hat h&ouml;chste Priorit&auml;t. Alle Daten auf angekauften Ger&auml;ten werden professionell und DSGVO-konform gel&ouml;scht, bevor die Ger&auml;te weiterverwendet werden.</div>
     </div>
   </div>
 </section>
 
 <!-- KONTAKT -->
 <section class="kontakt" id="kontakt">
-  <div class="section-header center">
+  <div class="section-header center reveal">
     <div class="section-label" id="lbl-kontakt">Kontakt</div>
     <h2 class="section-title" id="title-kontakt">Nehmen Sie Kontakt auf</h2>
     <p class="section-sub" id="sub-kontakt">Wir antworten innerhalb von 24 Stunden. Kostenloses, unverbindliches Angebot.</p>
   </div>
   <div class="kontakt-grid">
-    <div class="kontakt-info">
+    <div class="kontakt-info reveal-left">
       <div class="kontakt-row">
-        <div class="kontakt-ico">👤</div>
+        <div class="kontakt-ico">&#128100;</div>
         <div><div class="kontakt-row-label">Inhaber</div><div class="kontakt-row-val">Ibrahim Kilicaslan</div></div>
       </div>
       <div class="kontakt-row">
-        <div class="kontakt-ico">📧</div>
+        <div class="kontakt-ico">&#128231;</div>
         <div><div class="kontakt-row-label">E-Mail</div><div class="kontakt-row-val"><a href="mailto:info@nexawelt.de">info@nexawelt.de</a></div></div>
       </div>
       <div class="kontakt-row">
-        <div class="kontakt-ico">📞</div>
+        <div class="kontakt-ico">&#128222;</div>
         <div><div class="kontakt-row-label">Telefon / WhatsApp</div><div class="kontakt-row-val"><a href="tel:+4917680894184">+49 (176) 80894184</a></div></div>
       </div>
       <div class="kontakt-row">
-        <div class="kontakt-ico">📍</div>
-        <div><div class="kontakt-row-label">Standort</div><div class="kontakt-row-val">Berlin, Deutschland<br><small style="color:rgba(255,255,255,0.4);font-size:12px;">Tätig in ganz Deutschland</small></div></div>
+        <div class="kontakt-ico">&#128205;</div>
+        <div><div class="kontakt-row-label">Standort</div><div class="kontakt-row-val">Berlin, Deutschland<br><small style="color:rgba(255,255,255,0.4);font-size:12px;">T&auml;tig in ganz Deutschland</small></div></div>
       </div>
       <div class="kontakt-row">
-        <div class="kontakt-ico">🌐</div>
+        <div class="kontakt-ico">&#127760;</div>
         <div><div class="kontakt-row-label">Website</div><div class="kontakt-row-val"><a href="https://nexawelt.de">www.nexawelt.de</a></div></div>
       </div>
       <div style="margin-top:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:14px 18px;">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:6px;">Rechtliches</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;">
-          NexaWelt · Inh. Ibrahim Kilicaslan<br>
-          Kleinunternehmer gemäß §19 UStG<br>
+          NexaWelt &middot; Inh. Ibrahim Kilicaslan<br>
+          Kleinunternehmer gem&auml;&szlig; &sect;19 UStG<br>
           Berlin, Deutschland
         </div>
       </div>
     </div>
-    <div class="kontakt-form">
-      <div class="form-title" id="form-title">📩 Kostenlose Anfrage</div>
+    <div class="kontakt-form reveal-right">
+      <div class="form-title" id="form-title">&#128233; Kostenlose Anfrage</div>
       <form onsubmit="submitForm(event)">
         <div class="form-group">
           <label id="lbl-name">Name</label>
@@ -431,8 +489,8 @@
         <div class="form-group">
           <label id="lbl-topic">Betreff</label>
           <select id="inp-topic">
-            <option value="ankauf">Ankauf – ich möchte verkaufen</option>
-            <option value="verkauf">Verkauf – ich suche etwas</option>
+            <option value="ankauf">Ankauf &ndash; ich m&ouml;chte verkaufen</option>
+            <option value="verkauf">Verkauf &ndash; ich suche etwas</option>
             <option value="it">IT-Dienstleistung</option>
             <option value="other">Sonstiges</option>
           </select>
@@ -441,7 +499,7 @@
           <label id="lbl-msg">Nachricht</label>
           <textarea id="inp-msg" placeholder="Beschreiben Sie kurz Ihr Anliegen..."></textarea>
         </div>
-        <button type="submit" class="form-submit" id="btn-submit">Anfrage senden →</button>
+        <button type="submit" class="form-submit" id="btn-submit">Anfrage senden &rarr;</button>
       </form>
     </div>
   </div>
@@ -450,130 +508,69 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Nexa<span>Welt</span></div>
-  <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;color:rgba(255,255,255,0.3);">Tech · Trade · Services</div>
+  <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;color:rgba(255,255,255,0.3);">Tech &middot; Trade &middot; Services</div>
   <div>
     <a href="#ankauf">Ankauf</a>
     <a href="#services">Services</a>
     <a href="#faq">FAQ</a>
     <a href="#kontakt">Kontakt</a>
+    <a onclick="openLegal('impressum')">Impressum</a>
+    <a onclick="openLegal('datenschutz')">Datenschutz</a>
   </div>
   <div style="margin-top:16px;font-size:12px;">
-    <strong>NexaWelt · Inh. Ibrahim Kilicaslan · Berlin</strong><br>
-    Kleinunternehmer gemäß §19 UStG · <a href="mailto:info@nexawelt.de">info@nexawelt.de</a><br>
-    <span id="footer-copy">© 2025 NexaWelt. Alle Rechte vorbehalten.</span>
+    <strong>NexaWelt &middot; Inh. Ibrahim Kilicaslan &middot; Berlin</strong><br>
+    Kleinunternehmer gem&auml;&szlig; &sect;19 UStG &middot; <a href="mailto:info@nexawelt.de">info@nexawelt.de</a><br>
+    <span id="footer-copy">&copy; 2025 NexaWelt. Alle Rechte vorbehalten.</span>
   </div>
 </footer>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/4917680894184" class="whatsapp-float" target="_blank" title="WhatsApp">💬</a>
+<!-- IMPRESSUM MODAL -->
+<div class="legal-modal" id="impressum-modal">
+  <div class="legal-content">
+    <button class="legal-close" onclick="closeLegal('impressum')">&times;</button>
+    <h2>Impressum</h2>
+    <h3>Angaben gem&auml;&szlig; &sect; 5 TMG</h3>
+    <p>
+      <strong>NexaWelt</strong><br>
+      Inh. Ibrahim Kilicaslan<br>
+      Tech Trade &amp; Services
+    </p>
+    <h3>Kontakt</h3>
+    <p>
+      E-Mail: <a href="mailto:info@nexawelt.de" style="color:var(--blue-mid);">info@nexawelt.de</a><br>
+      Telefon: <a href="tel:+4917680894184" style="color:var(--blue-mid);">+49 (176) 80894184</a><br>
+      Website: <a href="https://www.nexawelt.de" style="color:var(--blue-mid);">www.nexawelt.de</a>
+    </p>
+    <h3>Umsatzsteuer</h3>
+    <p>Kleinunternehmer gem&auml;&szlig; &sect;19 UStG. Es wird keine Umsatzsteuer erhoben und ausgewiesen.</p>
+    <h3>Verantwortlich f&uuml;r den Inhalt gem&auml;&szlig; &sect; 55 Abs. 2 RSt V</h3>
+    <p>Ibrahim Kilicaslan<br>Berlin, Deutschland</p>
+    <h3>EU-Streitschlichtung</h3>
+    <p>Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" style="color:var(--blue-mid);">https://ec.europa.eu/consumers/odr/</a>. Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+    <h3>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h3>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    <h3>Haftung f&uuml;r Inhalte</h3>
+    <p>Als Diensteanbieter sind wir gem&auml;&szlig; &sect; 7 Abs.1 TMG f&uuml;r eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach &sect;&sect; 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht unter der Verpflichtung, &uuml;bermittelte oder gespeicherte fremde Informationen zu &uuml;berwachen oder nach Umst&auml;nden zu forschen, die auf eine rechtswidrige T&auml;tigkeit hinweisen.</p>
+    <h3>Haftung f&uuml;r Links</h3>
+    <p>Unser Angebot enth&auml;lt Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb k&ouml;nnen wir f&uuml;r diese fremden Inhalte auch keine Gew&auml;hr &uuml;bernehmen. F&uuml;r die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+    <h3>Urheberrecht</h3>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielf&auml;ltigung, Bearbeitung, Verbreitung und jede Art der Verwertung au&szlig;erhalb der Grenzen des Urheberrechtes bed&uuml;rfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+  </div>
+</div>
 
-<script>
-  // MOBILE MENU
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-
-  // FAQ
-  function toggleFaq(el) {
-    el.classList.toggle('open');
-  }
-
-  // FORM
-  function submitForm(e) {
-    e.preventDefault();
-    const btn = document.getElementById('btn-submit');
-    btn.textContent = '✅ Nachricht gesendet!';
-    btn.style.background = '#25D366';
-    setTimeout(() => { btn.textContent = 'Anfrage senden →'; btn.style.background = ''; }, 3000);
-  }
-
-  // LANGUAGE
-  const t = {
-    de: {
-      'hero-h1': 'Ihr Partner für <em>Elektronik</em> &amp; Gebrauchtwaren',
-      'hero-sub': 'Faire Preise. Schnelle Abwicklung. Seriöser Ankauf & Verkauf – von Einzelgeräten bis zum Großposten.',
-      'btn-ankauf-cta': '📦 Jetzt verkaufen',
-      'btn-kontakt-cta': '📞 Kostenloses Angebot',
-      'stat1': 'Ganz Deutschland', 'stat2': '& B2C', 'stat3': 'Antwortzeit', 'stat4': 'Mindestmenge',
-      'lbl-ankauf': 'Wir kaufen an', 'title-ankauf': 'Was wir ankaufen',
-      'sub-ankauf': 'Ob einzelnes Gerät oder ganzes Lager – wir kaufen fair und schnell. Privatpersonen & Unternehmen willkommen.',
-      'lbl-process': 'So einfach geht\'s', 'title-process': 'In 3 Schritten zum Geld', 'sub-process': 'Kein Aufwand für Sie – wir kümmern uns um alles.',
-      'step1-title': 'Anfrage senden', 'step1-text': 'Schicken Sie uns eine kurze Liste oder Fotos Ihrer Geräte per E-Mail, WhatsApp oder Formular.',
-      'step2-title': 'Angebot erhalten', 'step2-text': 'Innerhalb von 24 Stunden erhalten Sie ein faires, transparentes Preisangebot von uns.',
-      'step3-title': 'Abwicklung & Zahlung', 'step3-text': 'Abholung, Versand oder Übergabe – ganz nach Ihren Wünschen. Zahlung sofort und sicher.',
-      'lbl-vorteil': 'Warum NexaWelt', 'title-vorteil': 'Ihre Vorteile', 'sub-vorteil': 'Was uns von anderen unterscheidet.',
-      'v1t': 'Ganz Deutschland', 'v1s': 'Wir sind in Berlin ansässig, aber für Sie in ganz Deutschland tätig.',
-      'v2t': 'Schnelle Abwicklung', 'v2s': 'Angebot innerhalb von 24 Stunden. Keine langen Wartezeiten.',
-      'v3t': 'Faire Preise', 'v3s': 'Marktorientierte Preise, keine versteckten Abzüge.',
-      'v4t': 'Privat & Gewerblich', 'v4s': 'Wir kaufen von Privatpersonen und Unternehmen – ohne Mindestmenge!',
-      'v5t': 'Persönlicher Service', 'v5s': 'Direkt mit dem Inhaber – kein Callcenter, keine Warteschleifen.',
-      'v6t': 'Nachhaltig', 'v6s': 'Geräte erhalten ein zweites Leben. Ihr Beitrag zur Kreislaufwirtschaft.',
-      'lbl-svc': 'Unsere Services', 'title-svc': 'Mehr als nur Ankauf', 'sub-svc': 'NexaWelt ist Ihr Full-Service-Partner für Tech, Trade & digitale Lösungen.',
-      'svc1t': 'Online-Handel', 'svc1s': 'eBay, Amazon, Etsy – wir verkaufen für Sie auf allen großen Plattformen.',
-      'svc2t': 'IT-Dienstleistungen', 'svc2s': 'Reparatur, Einrichtung, Datensicherheit – wir lösen Ihre IT-Probleme.',
-      'svc3t': 'App-Entwicklung', 'svc3s': 'Individuelle Apps für Ihr Unternehmen – modern, schnell, zuverlässig.',
-      'svc4t': 'Online Marketing', 'svc4s': 'SEO, Social Media, Google Ads – wir bringen Ihr Business nach vorne.',
-      'lbl-faq': 'FAQ', 'title-faq': 'Häufige Fragen',
-      'fq1': 'Kaufen Sie auch von Privatpersonen?', 'fa1': 'Ja, absolut! Wir kaufen sowohl von Privatpersonen als auch von Unternehmen. Es gibt keine Mindestmenge.',
-      'fq2': 'Wie schnell bekomme ich ein Angebot?', 'fa2': 'In der Regel innerhalb von 24 Stunden. Senden Sie uns Fotos und eine kurze Beschreibung.',
-      'fq3': 'Sind Sie nur in Berlin tätig?', 'fa3': 'Nein! Wir sind in ganz Deutschland aktiv. Abholung, Versand oder persönliche Übergabe.',
-      'fq4': 'Wie wird der Preis ermittelt?', 'fa4': 'Wir orientieren uns an aktuellen Marktpreisen von eBay und Amazon. Fair und transparent.',
-      'fq5': 'Was passiert mit meinen Daten?', 'fa5': 'Alle Daten werden professionell und DSGVO-konform gelöscht.',
-      'lbl-kontakt': 'Kontakt', 'title-kontakt': 'Nehmen Sie Kontakt auf', 'sub-kontakt': 'Wir antworten innerhalb von 24 Stunden. Kostenloses, unverbindliches Angebot.',
-      'form-title': '📩 Kostenlose Anfrage', 'lbl-name': 'Name', 'lbl-email': 'E-Mail', 'lbl-topic': 'Betreff', 'lbl-msg': 'Nachricht', 'btn-submit': 'Anfrage senden →',
-      'footer-copy': '© 2025 NexaWelt. Alle Rechte vorbehalten.'
-    },
-    en: {
-      'hero-h1': 'Your Partner for <em>Electronics</em> &amp; Used Goods',
-      'hero-sub': 'Fair prices. Fast processing. Reliable buying & selling – from single devices to bulk lots.',
-      'btn-ankauf-cta': '📦 Sell Now', 'btn-kontakt-cta': '📞 Free Quote',
-      'stat1': 'All Germany', 'stat2': '& B2C', 'stat3': 'Response time', 'stat4': 'Min. quantity',
-      'lbl-ankauf': 'We Buy', 'title-ankauf': 'What We Buy',
-      'sub-ankauf': 'Single device or entire warehouse – we buy quickly and fairly. Private individuals & businesses welcome.',
-      'lbl-process': 'How it works', 'title-process': '3 Simple Steps', 'sub-process': 'No effort for you – we handle everything.',
-      'step1-title': 'Send Request', 'step1-text': 'Send us a short list or photos of your devices via email, WhatsApp, or the form.',
-      'step2-title': 'Receive Offer', 'step2-text': 'Within 24 hours you will receive a fair, transparent price offer from us.',
-      'step3-title': 'Processing & Payment', 'step3-text': 'Pickup, shipping or handover – as you prefer. Payment immediate and secure.',
-      'lbl-vorteil': 'Why NexaWelt', 'title-vorteil': 'Your Advantages', 'sub-vorteil': 'What sets us apart from others.',
-      'v1t': 'All Germany', 'v1s': 'Based in Berlin, but active throughout Germany.',
-      'v2t': 'Fast Processing', 'v2s': 'Offer within 24 hours. No long waiting times.',
-      'v3t': 'Fair Prices', 'v3s': 'Market-oriented prices, no hidden deductions.',
-      'v4t': 'Private & Business', 'v4s': 'We buy from private individuals and companies – no minimum quantity!',
-      'v5t': 'Personal Service', 'v5s': 'Direct with the owner – no call center, no hold music.',
-      'v6t': 'Sustainable', 'v6s': 'Devices get a second life. Your contribution to the circular economy.',
-      'lbl-svc': 'Our Services', 'title-svc': 'More Than Just Buying', 'sub-svc': 'NexaWelt is your full-service partner for tech, trade & digital solutions.',
-      'svc1t': 'Online Trading', 'svc1s': 'eBay, Amazon, Etsy – we sell for you on all major platforms.',
-      'svc2t': 'IT Services', 'svc2s': 'Repair, setup, data security – we solve your IT problems.',
-      'svc3t': 'App Development', 'svc3s': 'Custom apps for your business – modern, fast, reliable.',
-      'svc4t': 'Online Marketing', 'svc4s': 'SEO, Social Media, Google Ads – we grow your business.',
-      'lbl-faq': 'FAQ', 'title-faq': 'Frequently Asked Questions',
-      'fq1': 'Do you buy from private individuals?', 'fa1': 'Yes, absolutely! We buy from both private individuals and businesses. No minimum quantity.',
-      'fq2': 'How quickly do I get an offer?', 'fa2': 'Usually within 24 hours. Send us photos and a short description.',
-      'fq3': 'Are you only active in Berlin?', 'fa3': 'No! We are active throughout Germany. Pickup, shipping or personal handover.',
-      'fq4': 'How is the price determined?', 'fa4': 'We base prices on current market rates from eBay and Amazon. Fair and transparent.',
-      'fq5': 'What happens to my data?', 'fa5': 'All data is professionally and GDPR-compliantly erased.',
-      'lbl-kontakt': 'Contact', 'title-kontakt': 'Get In Touch', 'sub-kontakt': 'We respond within 24 hours. Free, non-binding offer.',
-      'form-title': '📩 Free Request', 'lbl-name': 'Name', 'lbl-email': 'Email', 'lbl-topic': 'Subject', 'lbl-msg': 'Message', 'btn-submit': 'Send Request →',
-      'footer-copy': '© 2025 NexaWelt. All rights reserved.'
-    }
-  };
-
-  function setLang(lang) {
-    const d = t[lang];
-    for (const [id, val] of Object.entries(d)) {
-      const el = document.getElementById(id);
-      if (el) el.innerHTML = val;
-    }
-    document.getElementById('btn-de').classList.toggle('active', lang === 'de');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  }
-
-  // SMOOTH SCROLL for mobile menu links
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('open');
-    });
-  });
-</script>
-</body>
-</html>
+<!-- DATENSCHUTZ MODAL -->
+<div class="legal-modal" id="datenschutz-modal">
+  <div class="legal-content">
+    <button class="legal-close" onclick="closeLegal('datenschutz')">&times;</button>
+    <h2>Datenschutzerkl&auml;rung</h2>
+    <h3>1. Datenschutz auf einen Blick</h3>
+    <p>Die folgenden Hinweise geben einen einfachen &Uuml;berblick dar&uuml;ber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie pers&ouml;nlich identifiziert werden k&ouml;nnen.</p>
+    <h3>2. Verantwortlicher</h3>
+    <p>NexaWelt &ndash; Inh. Ibrahim Kilicaslan<br>Berlin, Deutschland<br>E-Mail: info@nexawelt.de<br>Telefon: +49 (176) 80894184</p>
+    <h3>3. Datenerfassung auf dieser Website</h3>
+    <p><strong>Kontaktformular:</strong> Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und f&uuml;r den Fall von Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+    <p><strong>E-Mail / Telefon / WhatsApp:</strong> Wenn Sie uns per E-Mail, Telefon oder WhatsApp kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten zum Zwecke der Bearbeitung bei uns gespeichert.</p>
+    <h3>4. Hosting</h3>
+    <p>Diese Website wird bei Amazon Web Services (AWS) gehostet. Die Server befinden sich in der EU. Details zur Datenverarbeitung entnehmen Sie der Datenschutzerkl&auml;rung von AWS: <a href="https://aws.amazon.com/de/privacy/" target="_blank" style="color:var(--blue-mid);">https://aws.amazon.com/de/privacy/</a></p>
+    <h3>5. Cookies</h3>
+    <p>Diese Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endger&auml;t gespeichert werden. Wir verwenden technisch notwendige Cookies, die f&uuml;r den Betrieb der Seite erforderlich sind. Sie k&ouml;nnen Ihren
